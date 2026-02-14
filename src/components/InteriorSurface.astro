@@ -1,0 +1,87 @@
+---
+import { Image } from "astro:assets";
+import InteriorSurfaceColor from "../assets/InteriorSurfaceColor.jpg";
+import InteriorSurfaceGray from "../assets/InteriorSurface.jpg";
+---
+
+<section
+  class="h-dvh w-full flex flex-col justify-center items-start gap-8 relative px-6 pt-36 text-light"
+>
+  <div class="swiper-bg absolute inset-0 w-full h-full -z-5">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <Image
+          src={InteriorSurfaceColor}
+          alt="Interior Surface Color"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      <div class="swiper-slide">
+        <Image
+          src={InteriorSurfaceGray}
+          alt="Interior Surface"
+          class="w-full h-full object-cover"
+        />
+      </div>
+    </div>
+  </div>
+  <h2 class="text-3xl text-left">
+    <b>Interior Surface</b>
+    <br />
+    Composition
+  </h2>
+  <p>
+    Mutati methodology replaces industrial repetition with manual precision.
+    Every texture within the cabin is treated as a proprietary asset, focusing
+    on a tactile interface that remains exclusive to the Holder’s private
+    registry.
+  </p>
+
+  <script>
+    import Swiper from "swiper";
+    import { EffectFade, Autoplay } from "swiper/modules";
+    import "swiper/css";
+    import "swiper/css/effect-fade";
+
+    new Swiper(".swiper-bg", {
+      modules: [EffectFade, Autoplay],
+      effect: "fade",
+      fadeEffect: { crossFade: true },
+      loop: true,
+      allowTouchMove: false,
+      autoplay: {
+        delay: 3500,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: false,
+      },
+      speed: 2500,
+      slidesPerView: 1,
+      navigation: false,
+      pagination: false,
+    });
+  </script>
+
+  <style>
+    .swiper-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -5;
+      background-color: black;
+    }
+    .swiper-bg .swiper-slide {
+      width: 100%;
+      height: 100%;
+    }
+    .swiper-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .swiper-bg .swiper-wrapper {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</section>

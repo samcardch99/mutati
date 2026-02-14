@@ -9,5 +9,8 @@ export default defineConfig({
   integrations: [lenis()],
   vite: {
     plugins: [tailwindcss()]
+  },
+  server: {
+    host: true
   }
 });

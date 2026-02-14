@@ -1,0 +1,116 @@
+---
+const faqs = [
+  {
+    id: "01",
+    question:
+      "Is It Possible To Create Custom Designs For Cabin Configurations And Specific Sleeping Solutions?",
+    answer:
+      "Yes, we specialize in bespoke cabin layouts tailored to your specific needs, including executive workstations and optimized sleeping arrangements for long-haul flights.",
+  },
+  {
+    id: "02",
+    question:
+      "Do The Materials Used Comply With Federal Aviation Administration (FAA) Safety Regulations?",
+    answer:
+      "All Materials Used In Upholstery, Carpeting, And Finishes Strictly Comply With FAA Standards To Ensure Durability And Protection.",
+  },
+  {
+    id: "03",
+    question:
+      "Does The Company Provide Facilities For Aircraft Storage During The Remodeling Process?",
+    answer:
+      "We partner with premium hangar facilities to provide secure, climate-controlled storage for your aircraft throughout the entire duration of the remodeling process.",
+  },
+];
+---
+
+<section
+  class="w-full min-h-screen bg-brown text-light flex flex-col justify-center px-8 md:px-20 py-20 font-sans"
+>
+  <div class="mb-12">
+    <h2
+      class="text-5xl md:text-7xl font-bold leading-[0.9] uppercase tracking-tighter mb-6"
+    >
+      Frequently <br /> Asked Questions
+    </h2>
+    <p class="text-xl md:text-2xl opacity-80 font-light italic">
+      About Interior Designs<br /><span class="text-[#CEC2B2]"
+        >& Service Policy!
+      </span>
+    </p>
+  </div>
+
+  <div class="max-w-3xl w-full accordion-container">
+    {
+      faqs.map((faq, index) => (
+        <div
+          class={`accordion-item border-t border-light/30 transition-all duration-500 ${index === 1 ? "is-active" : ""}`}
+        >
+          <button class="accordion-trigger w-full flex gap-4 items-start py-6 text-left group">
+            <span class="text-xs font-bold pt-1.5">{faq.id}.</span>
+            <div class="flex-1">
+              <h3 class="text-lg md:text-xl font-bold leading-snug uppercase tracking-tight group-hover:pl-2 transition-all duration-300">
+                {faq.question}
+              </h3>
+
+              <div class="accordion-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
+                <p class="pt-4 pb-2 text-sm md:text-base leading-relaxed opacity-80 max-w-xl border-l border-light/20 pl-4 mt-2">
+                  {faq.answer}
+                </p>
+              </div>
+            </div>
+          </button>
+        </div>
+      ))
+    }
+    <div class="border-t border-light/30 w-full"></div>
+  </div>
+</section>
+
+<style>
+  /* Estilos para el estado activo */
+  .accordion-item.is-active {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    border-radius: 4px;
+  }
+
+  .accordion-item.is-active .accordion-content {
+    max-height: 200px; /* Ajusta según el largo del texto */
+  }
+
+  h2 {
+    word-spacing: -0.1em;
+  }
+</style>
+
+<script>
+  function setupAccordion() {
+    const items = document.querySelectorAll(".accordion-item");
+
+    items.forEach((item) => {
+      const trigger = item.querySelector(".accordion-trigger");
+
+      trigger?.addEventListener("click", () => {
+        const isActive = item.classList.contains("is-active");
+
+        // Cerramos todos los demás (opcional, para comportamiento de acordeón único)
+        items.forEach((i) => i.classList.remove("is-active"));
+
+        // Si el que clicamos no estaba activo, lo activamos
+        if (!isActive) {
+          item.classList.add("is-active");
+        }
+      });
+    });
+  }
+
+  // Se ejecuta al cargar la página
+  setupAccordion();
+
+  // Necesario si usas View Transitions de Astro
+  document.addEventListener("astro:after-swap", setupAccordion);
+</script>

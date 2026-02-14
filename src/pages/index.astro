@@ -5,19 +5,22 @@ import About from "../components/About.astro";
 import Statistics from "../components/Statistics.astro";
 import Projects from "../components/Projects.astro";
 import BeforeAfter from "../components/BeforeAfter.astro";
+import InteriorSurface from "../components/InteriorSurface.astro";
+import FAQ from "../components/FAQ.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <Layout>
   <div
     id="hero-bg"
-    class="fixed inset-0 over -z-10 h-dvh bg-[url('../assets/cover.jpg')] will-change-transform bg-cover bg-center bg-no-repeat blur-md scale-[1.1]"
+    class="fixed inset-0 over -z-10 h-screen bg-[url('../assets/cover.jpg')] will-change-transform bg-cover bg-center bg-no-repeat blur-md scale-[1.1]"
   >
   </div>
-  <section id="scroll-container" class="h-[200dvh] w-full relative z-0">
-    <div class="h-dvh w-full snap-start">
+  <section id="scroll-container" class="h-[200vh] w-full relative z-0">
+    <div class="h-screen w-full snap-start">
       <Home />
     </div>
-    <div class="h-dvh w-full snap-start">
+    <div class="h-screen w-full snap-start">
       <!-- added background to About container to make text readable over fixed bg if needed, or just layout -->
       <About />
     </div>
@@ -25,6 +28,9 @@ import BeforeAfter from "../components/BeforeAfter.astro";
   <Statistics />
   <Projects />
   <BeforeAfter />
+  <InteriorSurface />
+  <FAQ />
+  <Footer />
 
   <script>
     import { gsap } from "gsap";

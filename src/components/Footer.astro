@@ -1,0 +1,29 @@
+---
+import PrimaryButton from "./helpers/PrimaryButton.astro";
+import Logo_Large from "../assets/logo_large.svg";
+---
+
+<section
+  id="footer"
+  class="min-h-screen w-full bg-light pt-36 pb-20 px-6 flex flex-col gap-16 items-center
+justify-between"
+>
+  <div class="flex flex-col items-center justify-center w-fit gap-12">
+    <PrimaryButton className="text-xl px-7 py-3" text="LinkedIn" />
+    <PrimaryButton className="text-xl px-7 py-3" text="Facebook" />
+    <PrimaryButton className="text-xl px-7 py-3" text="Instagram" />
+  </div>
+  <div class="flex flex-col items-start justify-center text-left gap-8">
+    <div>
+      <h3 class="text-xl font-bold">Address</h3>
+      <h4 class="text-lg">12255 SW 128th St Suite 402, Miami, Florida 33186</h4>
+    </div>
+    <div>
+      <h3 class="text-xl font-bold">Email Us</h3>
+      <h4 class="text-lg">info@mutatidesign.com</h4>
+    </div>
+    <div class="h-1 w-full bg-brown"></div>
+
+    <Logo_Large class="w-full" />
+  </div>
+</section>
