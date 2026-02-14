@@ -1,8 +1,37 @@
 ---
-import Statistics from "../assets/statistics.svg";
-const { title = "", subtitle = "", text = "" } = Astro.props;
+import statistics from "../data/statistics.json";
+
+const colors = [
+  {
+    background: "bg-brown",
+    text: "text-bone",
+  },
+  {
+    background: "bg-bone",
+    text: "text-brown",
+  },
+  {
+    background: "bg-red",
+    text: "text-light",
+  },
+  {
+    background: "bg-light",
+    text: "text-red",
+  },
+];
 ---
 
-<section class="h-dvh w-full snap-start">
-    <h2 class="text-6xl" " < section></h2>
-</section>
+{
+  statistics.map((stat, index) => (
+    <section
+      class={`h-[80dvh] w-full px-6 flex flex-col items-start justify-center gap-8 ${colors[index].text} ${colors[index].background}`}
+    >
+      <h2 class="text-[clamp(2.5rem,12vw,5rem)] leading-14 font-bold">
+        {stat.title}
+      </h2>
+      <div class={`h-1 w-full bg-current`} />
+      <p class="text-2xl font-bold">{stat.subtitle}</p>
+      <p class="text-xl">{stat.text}</p>
+    </section>
+  ))
+}
