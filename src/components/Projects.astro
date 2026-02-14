@@ -1,0 +1,80 @@
+---
+import { Image } from "astro:assets";
+
+import carousel1 from "../assets/carousel1.jpg";
+---
+
+<section
+  class="min-h-dvh w-full bg-black text-white flex flex-col justify-between items-center px-6 pt-36 pb-20 gap-10"
+>
+  <h2 class="text-2xl">
+    Discover <b>The Excellence</b> Behind Every <b>Detail</b> Of Our <b
+      >Creations</b
+    >
+  </h2>
+  <div class="h-0.5 w-[70%] self-start bg-white"></div>
+  <p class="text-lg">
+    Mutati manages a limited record of two annual interior projects. Each cabin
+    is a bespoke architectural asset designed under FAA certification standards
+    and reserved exclusively for the Holder.
+  </p>
+  <div class="swiper w-full max-w-4xl flex flex-col items-center">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide relative flex items-center justify-center">
+        <a
+          class="absolute inset-0 bg-black/60 font-light transition-colors duration-300 text-light text-2xl text-center content-center"
+        >
+          View Project
+        </a>
+        <Image src={carousel1} alt="Project 1" class="w-full object-cover" />
+      </div>
+      <div class="swiper-slide">
+        <Image src={carousel1} alt="Project 2" class="w-full object-cover" />
+      </div>
+      <div class="swiper-slide">
+        <Image src={carousel1} alt="Project 2" class="w-full object-cover" />
+      </div>
+      <div class="swiper-slide">
+        <Image src={carousel1} alt="Project 2" class="w-full object-cover" />
+      </div>
+      <div class="swiper-slide">
+        <Image src={carousel1} alt="Project 2" class="w-full object-cover" />
+      </div>
+      <div class="swiper-slide">
+        <Image src={carousel1} alt="Project 2" class="w-full object-cover" />
+      </div>
+      <div class="swiper-slide">
+        <Image src={carousel1} alt="Project 2" class="w-full object-cover" />
+      </div>
+      <div class="swiper-slide">
+        <Image src={carousel1} alt="Project 2" class="w-full object-cover" />
+      </div>
+    </div>
+    <div class="swiper-pagination mt-6 relative!"></div>
+  </div>
+
+  <script>
+    import Swiper from "swiper";
+    import { Navigation, Pagination } from "swiper/modules";
+    import "swiper/css";
+    import "swiper/css/navigation";
+    import "swiper/css/pagination";
+
+    new Swiper(".swiper", {
+      modules: [Pagination],
+      pagination: { el: ".swiper-pagination", clickable: true },
+
+      slidesPerView: 1,
+      spaceBetween: 20,
+    });
+  </script>
+
+  <style>
+    :global(.swiper-pagination-bullet) {
+      background-color: #e8e3e1 !important;
+    }
+    :global(.swiper-pagination-bullet-active) {
+      background-color: white !important;
+    }
+  </style>
+</section>

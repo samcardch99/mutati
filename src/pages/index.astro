@@ -3,12 +3,14 @@ import Layout from "../layouts/Layout.astro";
 import Home from "../components/Home.astro";
 import About from "../components/About.astro";
 import Statistics from "../components/Statistics.astro";
+import Projects from "../components/Projects.astro";
+import BeforeAfter from "../components/BeforeAfter.astro";
 ---
 
 <Layout>
   <div
     id="hero-bg"
-    class="fixed inset-0 over -z-10 h-dvh bg-[url('../assets/cover.jpg')] will-change-transform bg-cover bg-center bg-no-repeat blur-sm scale-[1.1]"
+    class="fixed inset-0 over -z-10 h-dvh bg-[url('../assets/cover.jpg')] will-change-transform bg-cover bg-center bg-no-repeat blur-md scale-[1.1]"
   >
   </div>
   <section id="scroll-container" class="h-[200dvh] w-full relative z-0">
@@ -21,6 +23,8 @@ import Statistics from "../components/Statistics.astro";
     </div>
   </section>
   <Statistics />
+  <Projects />
+  <BeforeAfter />
 
   <script>
     import { gsap } from "gsap";

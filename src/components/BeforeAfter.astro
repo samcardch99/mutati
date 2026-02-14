@@ -1,0 +1,21 @@
+---
+import { Image } from "astro:assets";
+import carousel1 from "../assets/carousel1.jpg";
+---
+
+<section
+  class="w-full min-h-dvh flex flex-col pt-44 pb-20 justify-between items-center gap-12 text-light bg-black px-6"
+>
+  <h2 class="text-[clamp(2.5rem,12vw,5rem)] leading-14">
+    Before / <span class="text-gray-500">After</span>
+  </h2>
+  <Image
+    src={carousel1}
+    alt="Before and After Image"
+    class="w-full max-w-4xl object-cover"
+  />
+  <h3 class="text-center text-xl w-[90%]">
+    Aged Leather Surfaces And Outdated Finishes That No Longer Reflect The
+    Standard Of Contemporary Luxury.
+  </h3>
+</section>
