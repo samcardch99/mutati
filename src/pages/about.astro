@@ -3,18 +3,22 @@ import Layout from "../layouts/Layout.astro";
 import RightArrow from "../assets/right_arrow.svg";
 import { Image } from "astro:assets";
 import AboutInteriorImage1 from "../assets/about_interior_1.jpg";
+import AboutInteriorImage2 from "../assets/about_interior_2.jpg";
+import AboutInteriorImage3 from "../assets/about_interior_3.jpg";
+import AboutInteriorImage1Desktop from "../assets/about_interior_1_desktop.jpg";
+import AboutInteriorImage2Desktop from "../assets/about_interior_2_desktop.jpg";
+import AboutInteriorImage3Desktop from "../assets/about_interior_3_desktop.jpg";
 ---
 
 <Layout>
-  <section
-    id="about-interior"
-    class="h-[200vh] w-full pt-36 bg-brown text-light relative"
-  >
+  <section id="about-interior-1" class="w-full bg-brown text-light relative">
     <div
-      class="h-[80vh] flex flex-col items-center justify-start gap-12 px-6 pb-6"
+      class="h-[80vh] flex flex-col items-center lg:items-start lg:px-24 justify-start gap-12 lg:gap-20 pt-36 px-6"
     >
-      <h1 class="text-5xl font-bold italic">About Us</h1>
-      <p class="text-lg text-center max-w-2xl leading-8">
+      <h1 class="text-5xl font-bold italic lg:text-8xl">About Us</h1>
+      <p
+        class="text-lg lg:text-5xl text-center lg:self-center max-w-2xl lg:max-w-4/5 leading-8 lg:leading-20 lg:text-light/75"
+      >
         Mutati operates as an atelier where industrial repetition is replaced by
         artisanal precision and registered intellectual property. Each
         commission receives a Latin nomenclature, ensuring its status as a
@@ -24,21 +28,94 @@ import AboutInteriorImage1 from "../assets/about_interior_1.jpg";
         authorship and airworthiness.
       </p>
     </div>
-    <div
-      class="flex justify-between items-center inset-x-6 absolute z-10 bottom-16"
-    >
-      <h2 class="text-[clamp(1.5rem,8vw,4rem)] leading-12 text-left italic">
-        <b> Bespoke Cabin </b>
-        <br />
-        Architecture
-      </h2>
-      <RightArrow class="w-16" />
-    </div>
+    <section class="h-[120vh] w-full relative">
+      <div
+        class="flex lg:block justify-between lg:justify-normal items-center inset-x-6 lg:inset-x-auto lg:w-full lg:px-[36%] lg:bottom-auto lg:top-1/2 absolute z-10 bottom-16 lg:text-brown"
+      >
+        <h2
+          class="text-[clamp(1.5rem,8vw,4rem)] leading-12 lg:leading-16 text-left lg:text-right italic lg:-translate-x-full w-full"
+        >
+          <b> Bespoke Cabin </b>
+          <br />
+          Architecture
+        </h2>
+        <h2
+          class="text-[clamp(1.5rem,8vw,4rem)] leading-12 lg:leading-16 text-left italic hidden lg:block lg:translate-x-full -translate-y-full"
+        >
+          Curated <b>
+            Interior
+            <br />
+            Enviornments
+          </b>
+        </h2>
+        <RightArrow
+          class="w-16 lg:w-20 text-light lg:text-brown lg:absolute lg:top-1/2 lg:right-16 lg:-translate-y-full"
+        />
+      </div>
 
+      <Image
+        src={AboutInteriorImage1}
+        alt="Bespoke cabin architecture by Mutati Design"
+        class="lg:hidden h-full w-full absolute bottom-0 object-cover"
+      />
+      <Image
+        src={AboutInteriorImage1Desktop}
+        alt="Bespoke cabin architecture by Mutati Design"
+        class="hidden lg:block h-full w-full absolute bottom-0 object-cover"
+      />
+    </section>
+  </section>
+  <section
+    id="about-interior-2"
+    class="h-screen w-full pt-36 lg:pt-0 text-brown relative"
+  >
     <Image
-      src={AboutInteriorImage1}
+      src={AboutInteriorImage2}
       alt="Bespoke cabin architecture by Mutati Design"
-      class="h-[120vh] absolute bottom-0 object-cover"
+      class="lg:hidden h-full w-full absolute bottom-0 object-cover"
     />
+    <Image
+      src={AboutInteriorImage2Desktop}
+      alt="Bespoke cabin architecture by Mutati Design"
+      class="hidden lg:block h-full w-full absolute bottom-0 object-cover"
+    />
+    <div
+      class="flex justify-between items-center inset-x-6 absolute z-10 bottom-16 lg:relative lg:h-full lg:inset-auto lg:px-24"
+    >
+      <h2
+        class="text-[clamp(1.5rem,8vw,4rem)] leading-12 lg:leading-16 text-left italic"
+      >
+        <b> Artisanal</b>
+        <br />
+        Interior Assets
+      </h2>
+      <RightArrow class="w-16 lg:w-20 text-brown" />
+    </div>
+  </section>
+  <section
+    id="about-interior-3"
+    class="h-screen w-full pt-36 text-brown relative"
+  >
+    <Image
+      src={AboutInteriorImage3}
+      alt="Bespoke cabin architecture by Mutati Design"
+      class="lg:hidden h-full w-full absolute bottom-0 object-cover"
+    />
+    <Image
+      src={AboutInteriorImage3Desktop}
+      alt="Bespoke cabin architecture by Mutati Design"
+      class="hidden lg:block h-full w-full absolute bottom-0 object-cover"
+    />
+
+    <div
+      class="flex justify-between items-center inset-x-6 absolute z-10 bottom-16 lg:relative lg:h-full lg:inset-auto lg:px-24"
+    >
+      <h2
+        class="text-[clamp(1.5rem,8vw,4rem)] leading-12 lg:leading-16 text-left italic"
+      >
+        Certified <br /><b>Sensory Engineering</b>
+      </h2>
+      <RightArrow class="w-16 lg:w-20 text-brown" />
+    </div>
   </section>
 </Layout>
