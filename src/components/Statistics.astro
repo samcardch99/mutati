@@ -24,14 +24,18 @@ const colors = [
 {
   statistics.map((stat, index) => (
     <section
-      class={`h-[80vh] w-full px-6 flex flex-col items-start justify-center gap-8 ${colors[index].text} ${colors[index].background}`}
+      class={`h-[80vh] lg:h-[90vh] w-full px-6 lg:px-24 flex flex-col items-start justify-center lg:justify-start lg:pt-56 gap-8 lg:gap-20 ${colors[index].text} ${colors[index].background}`}
     >
-      <h2 class="text-[clamp(2.5rem,12vw,5rem)] leading-14 font-bold">
+      <h2 class="text-[clamp(2.5rem,12vw,5rem)] lg:text-[clamp(7.5rem,80vw,12rem)] leading-14 lg:leading-none font-bold">
         {stat.title}
       </h2>
       <div class={`h-1 w-full bg-current`} />
-      <p class="text-2xl font-bold">{stat.subtitle}</p>
-      <p class="text-xl">{stat.text}</p>
+      <div class="flex flex-col gap-8 items-start justify-center lg:flex-row lg:justify-between lg:w-full">
+        <h3 class="text-2xl lg:text-5xl  font-bold ">{stat.subtitle}</h3>
+        <p class="text-xl lg:text-4xl lg:max-w-2/5 leading-normal">
+          {stat.text}
+        </p>
+      </div>
     </section>
   ))
 }

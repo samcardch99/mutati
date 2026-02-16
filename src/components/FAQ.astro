@@ -25,36 +25,36 @@ const faqs = [
 ---
 
 <section
-  class="w-full min-h-screen bg-brown text-light flex flex-col justify-center px-8 md:px-20 py-20 font-sans"
+  class="w-full min-h-screen bg-brown text-light flex flex-col lg:flex-row justify-center lg:justify-between px-8 lg:px-24 lg:items-center md:px-20 py-20 font-sans"
 >
   <div class="mb-12">
     <h2
-      class="text-5xl md:text-7xl font-bold leading-[0.9] uppercase tracking-tighter mb-6"
+      class="text-5xl lg:text-8xl font-bold lg:font-normal leading-[0.9] lg:leading-none tracking-tighter lg:tracking-normal mb-6 lg:mb-12"
     >
-      Frequently <br /> Asked Questions
+      Frequently Asked <br /> Questions
     </h2>
-    <p class="text-xl md:text-2xl opacity-80 font-light italic">
+    <p class="text-xl md:text-2xl lg:text-6xl opacity-80 font-light italic">
       About Interior Designs<br /><span class="text-[#CEC2B2]"
         >& Service Policy!
       </span>
     </p>
   </div>
 
-  <div class="max-w-3xl w-full accordion-container">
+  <div class="max-w-5xl w-full accordion-container">
     {
       faqs.map((faq, index) => (
         <div
           class={`accordion-item border-t border-light/30 transition-all duration-500 ${index === 1 ? "is-active" : ""}`}
         >
           <button class="accordion-trigger w-full flex gap-4 items-start py-6 text-left group">
-            <span class="text-xs font-bold pt-1.5">{faq.id}.</span>
+            <span class="text-xs lg:text-xl font-bold pt-1.5">{faq.id}.</span>
             <div class="flex-1">
-              <h3 class="text-lg md:text-xl font-bold leading-snug uppercase tracking-tight group-hover:pl-2 transition-all duration-300">
+              <h3 class="text-lg md:text-xl lg:text-4xl font-bold leading-snug uppercase tracking-tight group-hover:pl-2 transition-all duration-300">
                 {faq.question}
               </h3>
 
               <div class="accordion-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
-                <p class="pt-4 pb-2 text-sm md:text-base leading-relaxed opacity-80 max-w-xl border-l border-light/20 pl-4 mt-2">
+                <p class="pt-4 pb-2 text-sm md:text-base lg:text-3xl leading-relaxed opacity-80 max-w-4/5 border-l border-light/20 pl-4 mt-2">
                   {faq.answer}
                 </p>
               </div>

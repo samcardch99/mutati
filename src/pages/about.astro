@@ -1,0 +1,44 @@
+---
+import Layout from "../layouts/Layout.astro";
+import RightArrow from "../assets/right_arrow.svg";
+import { Image } from "astro:assets";
+import AboutInteriorImage1 from "../assets/about_interior_1.jpg";
+---
+
+<Layout>
+  <section
+    id="about-interior"
+    class="h-[200vh] w-full pt-36 bg-brown text-light relative"
+  >
+    <div
+      class="h-[80vh] flex flex-col items-center justify-start gap-12 px-6 pb-6"
+    >
+      <h1 class="text-5xl font-bold italic">About Us</h1>
+      <p class="text-lg text-center max-w-2xl leading-8">
+        Mutati operates as an atelier where industrial repetition is replaced by
+        artisanal precision and registered intellectual property. Each
+        commission receives a Latin nomenclature, ensuring its status as a
+        unique asset within the brand's history. Our technical process
+        prioritizes FAA-certified materials with high sensory impact, resulting
+        in a physical artifact and a signature plate that validates both
+        authorship and airworthiness.
+      </p>
+    </div>
+    <div
+      class="flex justify-between items-center inset-x-6 absolute z-10 bottom-16"
+    >
+      <h2 class="text-[clamp(1.5rem,8vw,4rem)] leading-12 text-left italic">
+        <b> Bespoke Cabin </b>
+        <br />
+        Architecture
+      </h2>
+      <RightArrow class="w-16" />
+    </div>
+
+    <Image
+      src={AboutInteriorImage1}
+      alt="Bespoke cabin architecture by Mutati Design"
+      class="h-[120vh] absolute bottom-0 object-cover"
+    />
+  </section>
+</Layout>

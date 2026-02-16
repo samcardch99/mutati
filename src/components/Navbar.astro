@@ -3,16 +3,23 @@ import Logo from "../assets/logo.svg";
 import BurgerMenu from "../assets/burger_menu.svg";
 ---
 
-<nav class="w-full text-brown fixed z-50 backdrop-blur-sm">
-  <div class="flex justify-between items-center px-6 pt-8 pb-4">
-    <BurgerMenu class="w-12 h-12" />
-    <div class="flex items-center gap-6">
-      <Logo class="absolute left-1/2 -translate-x-1/2 w-14 h-14" />
+<nav
+  class="w-full text-brown fixed z-50 backdrop-blur-sm [mask:linear-gradient(to_bottom,black_80%,transparent_100%)]"
+>
+  <div
+    class="flex justify-between items-center px-6 lg:px-24 lg:pt-12 pt-8 pb-6"
+  >
+    <BurgerMenu class="w-12 h-12 lg:hidden" />
+    <Logo
+      class="absolute lg:order-1 lg:relative lg:left-auto lg:translate-x-0 left-1/2 -translate-x-1/2 w-14 h-14 lg:w-20 lg:h-20"
+    />
+    <div class="flex items-center gap-6 lg:gap-12 lg:order-2">
       <a
         href="/"
-        class="text-button_text bg-brown px-6 py-2 rounded-full text-lg font-medium"
+        class="text-button_text bg-brown px-6 py-2 lg:px-10 lg:py-3 rounded-full text-lg lg:text-3xl font-medium"
         >APPLY</a
       >
+      <BurgerMenu class="hidden lg:block w-16 h-16" />
     </div>
   </div>
 </nav>

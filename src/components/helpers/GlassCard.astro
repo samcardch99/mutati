@@ -1,0 +1,74 @@
+---
+// GlassCard.astro
+interface Props {
+  title?: string;
+  subtitle?: string;
+  class?: string;
+}
+
+const { title, subtitle, class: className } = Astro.props;
+---
+
+<div
+  class={`glass-card group relative overflow-hidden rounded-2xl border border-light/20 bg-light/5 p-8 backdrop-blur-md transition-all duration-500 ${className}`}
+>
+  <div
+    class="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100 spotlight-layer"
+  >
+  </div>
+
+  <div class="relative z-10">
+    {
+      title && (
+        <h3 class="text-2xl font-bold text-light uppercase tracking-tighter mb-2">
+          {title}
+        </h3>
+      )
+    }
+    {subtitle && <p class="text-light/60 text-sm mb-4 italic">{subtitle}</p>}
+
+    <div class="text-light/80 leading-relaxed">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<style>
+  .glass-card {
+    /* Sutil resplandor interior para reforzar el efecto cristal */
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.05);
+  }
+
+  .spotlight-layer {
+    background: radial-gradient(
+      600px circle at var(--mouse-x) var(--mouse-y),
+      rgba(214, 211, 209, 0.15),
+      transparent 40%
+    );
+  }
+</style>
+
+<script>
+  function handleMouseMove() {
+    const cards = document.querySelectorAll(".glass-card");
+
+    cards.forEach((card) => {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        // Calculamos posición relativa al contenedor
+        const x = (e as MouseEvent).clientX - rect.left;
+        const y = (e as MouseEvent).clientY - rect.top;
+
+        // Seteamos las variables CSS
+        (card as HTMLElement).style.setProperty("--mouse-x", `${x}px`);
+        (card as HTMLElement).style.setProperty("--mouse-y", `${y}px`);
+      });
+    });
+  }
+
+  // Ejecución inicial
+  handleMouseMove();
+
+  // Reiniciar si usas View Transitions
+  document.addEventListener("astro:after-swap", handleMouseMove);
+</script>

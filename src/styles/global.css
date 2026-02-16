@@ -154,3 +154,19 @@
     --color-primary-950: #2e1065;
 
 }
+@layer theme {
+    @screen 2xl-prev {
+        @media (min-width: 1536px) and (max-width: 1919px) {}
+    }
+    @screen 2xl-custom {
+        @media (min-width: 1920px) {}
+    }
+    @screen 3xl-custom {
+        @media (min-width: 2560px) {}
+    }
+}
+
+
+html {
+  @apply lg:text-[1rem] xl:text-[0.71rem] 2xl-prev:text-base 2xl:text-base 2xl-custom:text-[1.5rem] 3xl-custom:text-[2.3rem];
+}
