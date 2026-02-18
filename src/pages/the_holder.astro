@@ -1,0 +1,37 @@
+---
+import { Image } from "astro:assets";
+import TheHolderImage from "../assets/the_holder.jpg";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <section
+    class={`min-h-screen lg:pb-20  w-full px-6 pb-6 lg:px-24 flex flex-col items-start justify-center lg:justify-start pt-28 lg:pt-36 gap-8 lg:gap-12 bg-brown text-bone`}
+  >
+    <h2
+      class="text-[clamp(2.5rem,12vw,5rem)] lg:text-[clamp(5.5rem,80vw,10rem)] leading-14 lg:leading-none font-bold"
+    >
+      The Holder
+    </h2>
+    <div class={`h-1 w-full bg-light`}></div>
+    <div
+      class="flex flex-col gap-8 items-start justify-between lg:flex-row lg:gap-32 lg:items-end lg:w-full h-full"
+    >
+      <Image
+        src={TheHolderImage}
+        alt="Team from Mutati"
+        class="h-full w-full flex-1 object-cover"
+      />
+      <p class="text-xl lg:text-4xl leading-normal flex-1">
+        "Quite honestly, the level of craftsmanship is out of this world. They
+        transformed my Global 6000 cabin into a space that feels more like a
+        boutique hotel than an aircraft. The choice of leathers and the
+        precision of the stitching are impeccable. What I value most was their
+        ability to integrate cutting-edge technology without compromising the
+        classic aesthetic I was looking for. Now, every hour in the air is a
+        true pleasure."<br />
+        <b class="text-light">— Julián S., Private Owner.</b>
+      </p>
+    </div>
+  </section>
+</Layout>

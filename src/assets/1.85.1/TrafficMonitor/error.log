@@ -1,2 +1,0 @@
-2026/02/16 11:19:48.399: Notice: All devices will be recreated. This message is sent by the function on the next line:
-2026/02/16 11:19:48.400: void __thiscall CTaskBarDlgDrawCommonSupport::RecreateAll(void)

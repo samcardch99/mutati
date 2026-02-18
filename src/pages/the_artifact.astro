@@ -1,0 +1,84 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import Artifact1 from "../assets/artifact_1.jpg";
+import Artifact2 from "../assets/artifact_2.jpg";
+import Artifact3 from "../assets/artifact_3.jpg";
+import Artifact4 from "../assets/artifact_4.jpg";
+import Artifact5 from "../assets/artifact_5.jpg";
+import Artifact6 from "../assets/artifact_6.jpg";
+import RightArrow from "../assets/right_arrow.svg";
+---
+
+<Layout>
+  <section
+    class="min-h-screen lg:h-screen w-full flex flex-col lg:flex-row justify-between lg:items-end py-36 lg:py-40 bg-[#F3F3F3] px-6 lg:px-24 gap-0 lg:gap-0"
+  >
+    <h2
+      class="text-xl text-center lg:text-left lg:text-4xl w-full lg:max-w-[40%] leading-normal lg:leading-16 order-2 lg:order-1"
+    >
+      The Artifact serves as the tangible conclusion of each aeronautical
+      commission. This engineered enclosure houses the registered project plate,
+      raw material samples, and the comprehensive Project Book. To ensure
+      aesthetic continuity beyond the cabin, the set integrates proprietary
+      Mutati travel assets —including custom-designed luggage and carry-all
+      bags— all unified under the same technical nomenclature and reserved
+      exclusively for the Holder.
+    </h2>
+
+    <div class="w-full lg:w-1/2 h-[50vh] lg:h-full relative group">
+      <div class="swiper h-full w-full rounded-2xl overflow-hidden">
+        <div class="swiper-wrapper">
+          {
+            [
+              Artifact1,
+              Artifact2,
+              Artifact3,
+              Artifact4,
+              Artifact5,
+              Artifact6,
+            ].map((artifact, index) => (
+              <div class="swiper-slide h-full w-full">
+                <Image
+                  src={artifact}
+                  alt={`artifact ${index + 1}`}
+                  class={`h-full w-full object-contain ${index === 0 && "scale-75"}`}
+                />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+      <button
+        class="prev-nav absolute left-0 lg:left-10 top-1/2 -translate-y-1/2 z-10 cursor-pointer transition-transform hover:scale-110 active:scale-95"
+      >
+        <RightArrow class="w-12 h-12 lg:w-16 lg:h-16 rotate-180 text-red" />
+      </button>
+      <button
+        class="next-nav absolute right-0 lg:right-10 top-1/2 -translate-y-1/2 z-10 cursor-pointer transition-transform hover:scale-110 active:scale-95"
+      >
+        <RightArrow class="w-12 h-12 lg:w-16 lg:h-16 text-red" />
+      </button>
+    </div>
+
+    <script>
+      import Swiper from "swiper";
+      import { Navigation, Autoplay } from "swiper/modules";
+      import "swiper/css";
+      import "swiper/css/navigation";
+
+      new Swiper(".swiper", {
+        modules: [Navigation, Autoplay],
+        loop: true,
+        autoplay: {
+          delay: 3500,
+          disableOnInteraction: false,
+        },
+        navigation: {
+          nextEl: ".next-nav",
+          prevEl: ".prev-nav",
+        },
+      });
+    </script>
+  </section>
+</Layout>

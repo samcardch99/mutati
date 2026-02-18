@@ -4,9 +4,11 @@ import lenis from 'astro-lenis';
 
 import tailwindcss from '@tailwindcss/vite';
 
+import react from '@astrojs/react';
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [lenis()],
+  integrations: [lenis(), react()],
   vite: {
     plugins: [tailwindcss()]
   },

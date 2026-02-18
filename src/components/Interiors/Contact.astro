@@ -1,0 +1,91 @@
+---
+import PrimaryButton from "../helpers/PrimaryButton.astro";
+import Logo_Large from "../../assets/logo_large.svg";
+import Form from "../helpers/Form.jsx";
+---
+
+<section
+    id="footer"
+    class="min-h-screen flex flex-col lg:gap-20 w-full bg-light pt-36 pb-20 px-6 lg:px-24 content-end"
+>
+    <Form client:visible language="en" />
+
+    <div
+        class="h-full lg:h-[60vh] flex flex-col gap-16 items-center justify-between"
+    >
+        <div
+            class="flex flex-col lg:flex-row lg:justify-between items-stretch justify-center w-fit gap-12 lg:order-2 lg:hidden"
+        >
+            <PrimaryButton
+                className="text-xl px-8 py-3 w-full text-center hidden lg:block"
+                text="LinkedIn"
+            />
+            <PrimaryButton
+                className="text-xl px-8 py-3 w-full text-center hidden lg:block"
+                text="Facebook"
+            />
+            <PrimaryButton
+                className="text-xl px-8 py-3 w-full text-center hidden lg:block"
+                text="Instagram"
+            />
+        </div>
+        <div
+            class="flex-col lg:flex-row gap-8 w-full justify-center lg:justify-between hidden lg:flex lg:order-1"
+        >
+            <div>
+                <h3 class="text-xl lg:text-4xl font-bold lg:leading-normal">
+                    Address
+                </h3>
+                <h4 class="text-lg lg:text-3xl lg:leading-normal">
+                    12255 SW 128th St Suite 402,<br class="hidden lg:block" /> Miami,
+                    Florida 33186
+                </h4>
+            </div>
+            <div class="lg:text-right">
+                <h3 class="text-xl lg:text-4xl font-bold lg:leading-normal">
+                    Email Us
+                </h3>
+                <h4 class="text-lg lg:text-3xl lg:leading-normal">
+                    info@mutatidesign.com
+                </h4>
+            </div>
+        </div>
+        <div
+            class="flex flex-col items-start justify-center text-left gap-8 w-full lg:order-2"
+        >
+            <div
+                class="flex flex-col lg:flex-row gap-8 w-full justify-center lg:justify-between lg:hidden"
+            >
+                <div>
+                    <h3 class="text-xl font-bold">Address</h3>
+                    <h4 class="text-lg">
+                        12255 SW 128th St Suite 402, Miami, Florida 33186
+                    </h4>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold">Email Us</h3>
+                    <h4 class="text-lg">info@mutatidesign.com</h4>
+                </div>
+            </div>
+            <div
+                class="flex-rowjustify-between items-stretch justify-between w-full gap-12 hidden lg:flex text-xl lg:text-4xl"
+            >
+                <PrimaryButton
+                    className="lg:px-12 lg:py-4 w-fit text-center"
+                    text="LinkedIn"
+                />
+                <PrimaryButton
+                    className="lg:px-12 lg:py-4  w-fit text-center"
+                    text="Facebook"
+                />
+                <PrimaryButton
+                    className="lg:px-12 lg:py-4   w-fit text-center"
+                    text="Instagram"
+                />
+            </div>
+            <div class="h-1 lg:h-[0.4rem] w-full bg-brown"></div>
+
+            <Logo_Large class="w-full text-brown" />
+        </div>
+    </div>
+</section>
