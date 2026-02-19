@@ -1,5 +1,5 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout_Interior from "../layouts/Layout_Interior.astro";
 import RightArrow from "../assets/right_arrow.svg";
 import { Image } from "astro:assets";
 import AboutInteriorImage1 from "../assets/about_interior_1.jpg";
@@ -11,7 +11,7 @@ import AboutInteriorImage3Desktop from "../assets/about_interior_3_desktop.jpg";
 import Contact from "../components/Interiors/Contact.astro";
 ---
 
-<Layout>
+<Layout_Interior>
   <section id="about-interior-1" class="w-full bg-brown text-light relative">
     <div
       class="h-[80vh] flex flex-col items-center lg:items-start lg:px-24 justify-start gap-12 lg:gap-20 pt-36 px-6"
@@ -119,5 +119,4 @@ import Contact from "../components/Interiors/Contact.astro";
       <RightArrow class="w-16 lg:w-20 text-brown" />
     </div>
   </section>
-  <Contact />
-</Layout>
+</Layout_Interior>

@@ -1,0 +1,2 @@
+2026/02/18 22:55:51.225: An exception may have occurred, the currently selected connection is inconsistent with the expected connection. The connection has been retrieved. (1 times has been reinitialized)
+2026/02/18 22:56:01.233: The size of the buffer used to store connection information is not enough, the connection has been reinitialized. (2 times has been reinitialized)
