@@ -1,0 +1,95 @@
+---
+interface Props {
+    phrase: string;
+    class?: string;
+    mode?: "lines" | "words" | "chars";
+    delay?: number; // Agregamos la prop de delay
+}
+
+const { phrase, class: className, mode = "lines", delay = 0 } = Astro.props;
+---
+
+<div class={className} data-split-mode={mode} data-delay={delay}>
+    <h2 class="gsap-reveal-text">{phrase}</h2>
+</div>
+
+<style>
+    .gsap-reveal-text {
+        visibility: hidden;
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { SplitText } from "gsap/SplitText";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(SplitText, ScrollTrigger);
+
+    const containers = document.querySelectorAll("[data-split-mode]");
+
+    containers.forEach((container) => {
+        const mode = container.getAttribute("data-split-mode") || "lines";
+        // Recuperamos el delay del dataset
+        const startDelay = parseFloat(
+            (container as HTMLElement).dataset.delay || "0",
+        );
+        const el = container.querySelector(".gsap-reveal-text");
+
+        if (!el) return;
+
+        gsap.set(el, { autoAlpha: 1 });
+
+        const split = new SplitText(el, {
+            type: mode as any,
+            linesClass: mode === "lines" ? "line-parent" : "",
+            wordsClass: mode === "words" ? "word-parent" : "",
+            charsClass: mode === "chars" ? "char-parent" : "",
+        });
+
+        let animationProps: gsap.TweenVars = {};
+        let target: any[] = [];
+
+        if (mode === "lines") {
+            split.lines.forEach((line) => {
+                const wrapper = document.createElement("div");
+                wrapper.style.overflow = "hidden";
+                line.parentNode?.insertBefore(wrapper, line);
+                wrapper.appendChild(line);
+            });
+            target = split.lines;
+            animationProps = {
+                yPercent: 100,
+                duration: 0.5, // Aumentado para mayor elegancia
+                stagger: 0.2,
+            };
+        } else if (mode === "words") {
+            target = split.words;
+            animationProps = {
+                opacity: 0,
+                y: 20,
+                duration: 0.8,
+                stagger: 0.05,
+            };
+        } else if (mode === "chars") {
+            target = split.chars;
+            animationProps = {
+                opacity: 0,
+                y: 10,
+                duration: 0.5,
+                stagger: 0.02,
+            };
+        }
+
+        gsap.from(target, {
+            ...animationProps,
+            delay: startDelay, // Aplicamos el delay de la escena
+            ease: "power2.out", // Ease seco sin resorte
+            scrollTrigger: {
+                trigger: el,
+                start: "top 95%",
+                toggleActions: "play none none none",
+            },
+        });
+    });
+</script>

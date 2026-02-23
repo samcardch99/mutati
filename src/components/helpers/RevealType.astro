@@ -1,0 +1,91 @@
+---
+interface Props {
+    phrase: string;
+    class?: string;
+    delay?: number; // Agregado para el inicio del efecto
+}
+
+const { phrase, class: className, delay = 0 } = Astro.props;
+---
+
+<div class={`overflow-hidden ${className}`} data-delay={delay}>
+    <h2 class="gsap-hybrid-text invisible">{phrase}</h2>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { SplitText } from "gsap/SplitText";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(SplitText, ScrollTrigger);
+
+    const glitchChars = ["h", "x", "t", "y"];
+    const TOTAL_DURATION = 1.2;
+
+    const playGlitch = (charElement: HTMLElement, finalChar: string) => {
+        if (finalChar === " ") return;
+
+        const tl = gsap.timeline();
+        tl.to(charElement, {
+            duration: 0.04,
+            onStart: () => {
+                charElement.textContent =
+                    glitchChars[Math.floor(Math.random() * 4)];
+            },
+        })
+            .to(charElement, {
+                duration: 0.04,
+                onStart: () => {
+                    charElement.textContent =
+                        glitchChars[Math.floor(Math.random() * 4)];
+                },
+            })
+            .to(charElement, {
+                duration: 0.04,
+                onComplete: () => {
+                    charElement.textContent = finalChar;
+                },
+            });
+    };
+
+    const elements = document.querySelectorAll(".gsap-hybrid-text");
+
+    elements.forEach((el) => {
+        // Obtenemos el delay del contenedor padre
+        const container = el.parentElement as HTMLElement;
+        const startDelay = parseFloat(container?.dataset.delay || "0");
+
+        const split = new SplitText(el, {
+            type: "lines,chars",
+            linesClass: "overflow-hidden",
+        });
+
+        gsap.set(el, { autoAlpha: 1 });
+
+        const charCount = split.chars.length;
+        const individualDuration = 0.6;
+        const staggerTime =
+            charCount > 1
+                ? (TOTAL_DURATION - individualDuration) / (charCount - 1)
+                : 0;
+
+        gsap.from(split.chars, {
+            yPercent: 100,
+            duration: individualDuration,
+            delay: startDelay, // Solo afecta al inicio del efecto total
+            ease: "power3.out",
+            stagger: {
+                each: staggerTime,
+                onStart: function () {
+                    const charElement = (this as any).targets()[0];
+                    const finalChar = charElement.textContent;
+                    playGlitch(charElement, finalChar);
+                },
+            },
+            scrollTrigger: {
+                trigger: el,
+                start: "top 90%",
+            },
+        });
+    });
+</script>

@@ -1,0 +1,117 @@
+---
+interface Props {
+    phrase: string;
+    class?: string;
+    delay?: number;
+}
+
+const { phrase, class: className, delay = 0 } = Astro.props;
+
+// Pre-procesamos la frase para convertir *texto* en <b>texto</b>
+const formattedPhrase = phrase.replace(
+    /\*(.*?)\*/g,
+    '<b class="font-bold">$1</b>',
+);
+const cleanPhrase = phrase.replace(/\*/g, "");
+---
+
+<div class={`relative ${className}`}>
+    {/* Este span invisible reserva el espacio y contiene el HTML correcto */}
+    <span
+        class="invisible select-none pointer-events-none"
+        aria-hidden="true"
+        set:html={formattedPhrase}
+    />
+
+    {/* Este es el span que el usuario ve */}
+    <span
+        class="type-target absolute top-0 left-0 opacity-0"
+        data-phrase={phrase}
+        data-delay={delay}></span>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const targets = document.querySelectorAll(".type-target");
+    const glitchChars = ["h", "x", "t", "y"];
+    const SECONDS_PER_CHAR = 0.05;
+
+    targets.forEach((el) => {
+        const target = el as HTMLElement;
+        const rawPhrase = target.dataset.phrase || "";
+        const startDelay = parseFloat(target.dataset.delay || "0");
+
+        // Creamos un mapa de dónde están las negritas basándonos en los asteriscos
+        let cleanText = "";
+        const boldRanges: { start: number; end: number }[] = [];
+        let tempText = rawPhrase;
+        let match;
+        const regex = /\*(.*?)\*/g;
+
+        while ((match = regex.exec(rawPhrase)) !== null) {
+            // Calculamos la posición real sin asteriscos
+            const start = match.index - boldRanges.length * 2;
+            const end = start + match[1].length;
+            boldRanges.push({ start, end });
+        }
+        cleanText = rawPhrase.replace(/\*/g, "");
+
+        const proxy = { count: 0 };
+
+        gsap.to(proxy, {
+            count: cleanText.length,
+            duration: cleanText.length * SECONDS_PER_CHAR,
+            delay: startDelay,
+            ease: "none",
+            scrollTrigger: {
+                trigger: target,
+                start: "top 95%",
+                toggleActions: "play none none none",
+            },
+            onStart: () => {
+                gsap.set(target, { opacity: 1 });
+            },
+            onUpdate: () => {
+                const i = Math.floor(proxy.count);
+                const progress = proxy.count % 1;
+
+                let resultHTML = "";
+                for (let charIdx = 0; charIdx <= i; charIdx++) {
+                    let char = cleanText[charIdx] || "";
+
+                    // Si es el caracter actual que está haciendo glitch
+                    if (charIdx === i && char !== " " && i < cleanText.length) {
+                        if (progress < 0.33) char = glitchChars[charIdx % 4];
+                        else if (progress < 0.66)
+                            char = glitchChars[(charIdx + 1) % 4];
+                    }
+
+                    // Verificamos si este índice debe ser negrita
+                    const isBold = boldRanges.some(
+                        (range) =>
+                            charIdx >= range.start && charIdx < range.end,
+                    );
+
+                    if (isBold) {
+                        resultHTML += `<b class="font-bold">${char}</b>`;
+                    } else {
+                        resultHTML += char;
+                    }
+                }
+                target.innerHTML = resultHTML;
+            },
+            onComplete: () => {
+                // Al final inyectamos el HTML limpio procesado por el servidor
+                const finalHTML = rawPhrase.replace(
+                    /\*(.*?)\*/g,
+                    '<b class="font-bold">$1</b>',
+                );
+                target.innerHTML = finalHTML;
+            },
+        });
+    });
+</script>

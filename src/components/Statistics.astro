@@ -1,41 +1,90 @@
 ---
 import statistics from "../data/statistics.json";
+import TextReveal from "./helpers/TextReveal.astro";
+import RevealType from "./helpers/RevealType.astro";
+import TypeWriter from "./helpers/TypeWriter.astro";
 
 const colors = [
-  {
-    background: "bg-brown",
-    text: "text-bone",
-  },
-  {
-    background: "bg-bone",
-    text: "text-brown",
-  },
-  {
-    background: "bg-red",
-    text: "text-light",
-  },
-  {
-    background: "bg-light",
-    text: "text-red",
-  },
+  { background: "bg-brown", text: "text-bone" },
+  { background: "bg-bone", text: "text-brown" },
+  { background: "bg-red", text: "text-light" },
+  { background: "bg-light", text: "text-red" },
 ];
 ---
 
-{
-  statistics.map((stat, index) => (
-    <section
-      class={`h-[80vh] lg:h-[90vh] w-full px-6 lg:px-24 flex flex-col items-start justify-center lg:justify-start lg:pt-56 gap-8 lg:gap-20 ${colors[index].text} ${colors[index].background}`}
-    >
-      <h2 class="text-[clamp(2.5rem,12vw,5rem)] lg:text-[clamp(7.5rem,80vw,12rem)] leading-14 lg:leading-none font-bold">
-        {stat.title}
-      </h2>
-      <div class={`h-1 w-full bg-current`} />
-      <div class="flex flex-col gap-8 items-start justify-center lg:flex-row lg:justify-between lg:w-full">
-        <h3 class="text-2xl lg:text-5xl  font-bold ">{stat.subtitle}</h3>
-        <p class="text-xl lg:text-4xl lg:max-w-2/5 leading-normal">
-          {stat.text}
-        </p>
-      </div>
-    </section>
-  ))
-}
+<div class="stats-container relative">
+  {
+    statistics.map((stat, index) => (
+      <article
+        class={`
+          stat-card
+          h-screen w-full
+          sticky top-0 /* Ayuda al posicionamiento inicial */
+          px-6 lg:px-24 flex flex-col items-start justify-center lg:justify-start lg:pt-56 gap-8 lg:gap-20 
+          ${colors[index].text} ${colors[index].background}
+        `}
+      >
+        <h2 class="text-[clamp(2.5rem,12vw,5rem)] lg:text-[clamp(7.5rem,80vw,12rem)] leading-none font-bold text-balance">
+          <RevealType phrase={stat.title} delay={0.4} />
+        </h2>
+
+        <div class="h-1 w-full bg-current" />
+
+        <div class="flex flex-col gap-8 items-start justify-center lg:flex-row lg:justify-between lg:w-full">
+          <div class="flex flex-col">
+            <h3 class="text-2xl lg:text-5xl font-bold">
+              <TypeWriter phrase={stat.subtitle.split(" ")[0]} delay={0} />
+            </h3>
+            <h3 class="text-2xl lg:text-5xl font-bold opacity-50">
+              <TypeWriter
+                phrase={stat.subtitle.split(" ").slice(1).join(" ")}
+                delay={0.14}
+              />
+            </h3>
+          </div>
+
+          <div class="lg:max-w-2/5">
+            <TextReveal
+              class="text-xl lg:text-4xl leading-normal text-balance"
+              phrase={stat.text}
+              delay={0.25}
+            />
+          </div>
+        </div>
+      </article>
+    ))
+  }
+</div>
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const cards = document.querySelectorAll(".stat-card");
+
+  cards.forEach((card, index) => {
+    const isLast = index === cards.length - 1;
+
+    if (!isLast) {
+      // EFECTO STACK: Las tarjetas se quedan fijas y la siguiente sube encima
+      ScrollTrigger.create({
+        trigger: card,
+        start: "top top",
+        pin: true,
+        pinSpacing: false, // Permite superposición
+        scrub: true,
+      });
+    } else {
+      // EFECTO HOLD: La última tarjeta se queda fija un momento antes de seguir
+      ScrollTrigger.create({
+        trigger: card,
+        start: "top top",
+        end: "+=30%", // Ajusta este valor para un hold más largo o corto
+        pin: true,
+        pinSpacing: true, // Empuja el contenido siguiente hacia abajo el tiempo del 'end'
+        scrub: true,
+      });
+    }
+  });
+</script>

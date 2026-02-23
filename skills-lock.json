@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "martinholovsky-gsap": {
+      "source": "smithery/ai",
+      "sourceType": "well-known",
+      "computedHash": "fe5f2ae828c4f1364bc9d391fb68bc7f9ae84229f3fee87537e64c3de3dee636"
+    }
+  }
+}
