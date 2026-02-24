@@ -2,17 +2,126 @@
 import Logo_Large from "../assets/logo_large.svg";
 ---
 
-<section class="relative -z-10 w-full content-end h-dvh">
-  <h1
-    class="absolute w-fit right-6 lg:right-16 top-1/2 -translate-y-[130%] text-brown text-[2.5rem] leading-12 lg:text-8xl lg:leading-none font-light italic text-right"
-  >
-    Elevating<br />
-    <span class="font-bold italic">Craftsmanship</span>
-  </h1>
+<section
+  id="home-section"
+  class="relative w-full h-dvh overflow-hidden bg-transparent"
+>
   <div
-    class="flex flex-col gap-2 h-fit items-end justify-center pb-16 px-6 lg:px-24"
+    class="absolute inset-0 z-10 pointer-events-none px-6 lg:px-24 flex flex-col justify-end pb-16"
   >
-    <div class="h-1 w-full bg-brown"></div>
-    <Logo_Large class="w-full text-brown" />
+    <div class="hidden md:flex justify-between w-full items-center mb-16">
+      <h1 class="side-text text-brown text-6xl leading-tight font-light italic">
+        Elevating<br />
+        <span class="font-bold italic">Craftsmanship</span>
+      </h1>
+      <h2
+        class="side-text text-brown text-6xl leading-tight font-light italic text-right"
+      >
+        Mastering<br />
+        <span class="font-bold italic">Details</span>
+      </h2>
+    </div>
+
+    <h1
+      class="side-text md:hidden absolute w-fit right-6 top-1/2 -translate-y-[130%] text-brown text-[2.5rem] leading-12 font-light italic text-right"
+    >
+      Elevating<br />
+      <span class="font-bold italic">Craftsmanship</span>
+    </h1>
+
+    <div id="hero-line" class="h-1 w-full bg-brown mb-16 origin-center"></div>
+
+    <div id="logo-reference" class="w-full flex justify-center relative z-20">
+      <Logo_Large
+        id="main-logo-ref"
+        class="w-full md:w-3/5 text-brown opacity-0 pointer-events-none"
+      />
+    </div>
   </div>
 </section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initHomeAnimation() {
+    const logoRef = document.getElementById("main-logo-ref");
+    const navLogo = document.getElementById("nav-logo-center");
+    const heroLine = document.getElementById("hero-line");
+    const sideTexts = document.querySelectorAll(".side-text");
+    const section = document.getElementById("home-section");
+
+    if (!logoRef || !navLogo || !section) return;
+
+    // --- FASE 1: CALIBRACIÓN INICIAL (AJUSTADA) ---
+    const currentScroll = window.scrollY; // Capturamos el scroll actual
+    const refRect = logoRef.getBoundingClientRect();
+    const navRect = navLogo.getBoundingClientRect();
+
+    const scaleFactor = refRect.width / navRect.width;
+
+    // Compensamos el cálculo sumando el scroll actual para obtener la posición absoluta
+    const refCenterY = refRect.top + currentScroll + refRect.height / 2;
+    const navCenterY = navRect.top + navRect.height / 2; // El nav es fixed, no requiere compensación
+    const initialY = refCenterY - navCenterY;
+
+    // Seteamos el logo del Navbar en la posición "Gigante" de inicio
+    gsap.set(navLogo, {
+      y: initialY,
+      scale: scaleFactor,
+      opacity: 1,
+      visibility: "visible",
+    });
+
+    // --- FASE 2: TIMELINE DE SCROLL ---
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#home-section",
+        start: "top top",
+        end: "+=100%",
+        scrub: 1,
+        pin: true,
+        pinSpacing: true,
+        invalidateOnRefresh: true,
+      },
+    });
+
+    tl.to(
+      heroLine,
+      { scaleX: 0, opacity: 0, duration: 1, ease: "power2.inOut" },
+      0,
+    )
+      .to(sideTexts, { opacity: 0, duration: 0.8, ease: "none" }, 0)
+      .to(
+        navLogo,
+        {
+          y: 0,
+          scale: 1,
+          duration: 2,
+          ease: "power3.inOut",
+        },
+        0.1,
+      );
+
+    // Refrescamos ScrollTrigger para asegurar que los cálculos se sincronicen
+    ScrollTrigger.refresh();
+  }
+
+  window.addEventListener("load", initHomeAnimation);
+  document.addEventListener("astro:after-swap", initHomeAnimation);
+</script>
+
+<style>
+  #home-section {
+    z-index: 10;
+  }
+  #main-logo-ref {
+    display: block;
+    max-height: 25vh;
+  }
+  :global(.pin-spacer) {
+    z-index: 10 !important;
+  }
+</style>

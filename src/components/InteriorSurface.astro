@@ -4,6 +4,8 @@ import InteriorSurfaceColor from "../assets/InteriorSurfaceColor.jpg";
 import InteriorSurfaceGray from "../assets/InteriorSurface.jpg";
 import InteriorSurfaceColorDesktop from "../assets/InteriorSurfaceColorDesktop.jpg";
 import InteriorSurfaceGrayDesktop from "../assets/InteriorSurfaceDesktop.jpg";
+import TypeWriter from "./helpers/TypeWriter.astro";
+import TextReveal from "./helpers/TextReveal.astro";
 const slides = [
   {
     mobile: InteriorSurfaceColor,
@@ -25,7 +27,7 @@ const slides = [
     <div class="swiper-wrapper h-full">
       {
         slides.map((slide, index) => (
-          <div class="swiper-slide h-full">
+          <div class="swiper-slide h-full w-full">
             {/* Imagen para Móvil */}
             <Image
               src={slide.mobile}
@@ -43,16 +45,28 @@ const slides = [
       }
     </div>
   </div>
-  <h2 class="text-3xl lg:text-6xl text-left">
-    <b>Interior Surface</b>
-    <br />
-    Composition
+  <h2>
+    <TypeWriter
+      duration={0.1}
+      class="text-3xl lg:text-6xl text-left whitespace-nowrap"
+      phrase="*Interior Surface*"
+    />
+    <TypeWriter
+      duration={0.1}
+      class="text-3xl lg:text-6xl text-left whitespace-nowrap"
+      delay={0.8}
+      phrase="Composition"
+    />
   </h2>
-  <p class="text-xl lg:text-3xl lg:max-w-1/3">
-    Mutati methodology replaces industrial repetition with manual precision.
+  <p>
+    <TextReveal
+      class="text-xl lg:text-3xl lg:max-w-[33vw]"
+      phrase="Mutati methodology replaces industrial repetition with manual precision.
     Every texture within the cabin is treated as a proprietary asset, focusing
     on a tactile interface that remains exclusive to the Holder’s private
-    registry.
+    registry."
+      delay={1.2}
+    />
   </p>
 
   <script>

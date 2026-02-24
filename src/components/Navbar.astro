@@ -1,18 +1,29 @@
 ---
 import Logo from "../assets/logo.svg";
+import Logo_Large from "../assets/logo_large.svg";
 import BurgerMenu from "../assets/burger_menu.svg";
 ---
 
-<nav
-  class="w-full text-brown fixed z-50 backdrop-blur-sm [mask:linear-gradient(to_bottom,black_80%,transparent_100%)]"
->
+<nav class="w-full text-brown fixed z-[100] transition-colors duration-500">
   <div
-    class="flex justify-between items-center px-6 lg:px-24 lg:pt-12 pt-8 pb-6"
+    class="absolute inset-0 backdrop-blur-sm [mask:linear-gradient(to_bottom,black_80%,transparent_100%)] -z-10 pointer-events-none"
+  >
+  </div>
+
+  <div
+    class="flex justify-between items-center px-6 lg:px-24 lg:pt-12 pt-8 pb-6 relative"
   >
     <BurgerMenu class="w-12 h-12 lg:hidden" />
+
     <Logo
       class="absolute lg:order-1 lg:relative lg:left-auto lg:translate-x-0 left-1/2 -translate-x-1/2 w-14 h-14 lg:w-20 lg:h-20"
     />
+
+    <Logo_Large
+      id="nav-logo-center"
+      class="absolute left-1/2 -translate-x-1/2 md:w-[120px] lg:w-[120px] 2xl-custom:w-[256px] 3xl-custom:w-[320px] text-brown will-change-transform"
+    />
+
     <div class="flex items-center gap-6 lg:gap-12 lg:order-2">
       <a
         href="/"
@@ -23,3 +34,13 @@ import BurgerMenu from "../assets/burger_menu.svg";
     </div>
   </div>
 </nav>
+
+<style>
+  /* Aseguramos que el logo del nav sea nítido al final de la animación */
+  #nav-logo-center {
+    display: block;
+    transform-origin: center center;
+    /* Evita que el logo sea "mordido" por contenedores padres */
+    overflow: visible;
+  }
+</style>

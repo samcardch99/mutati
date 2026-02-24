@@ -1,12 +1,21 @@
+---
+import RevealType from "./helpers/RevealType.astro";
+import TextReveal from "./helpers/TextReveal.astro";
+---
+
 <section
   class="h-full w-full px-6 lg:px-24 flex flex-col gap-6 lg:gap-12 justify-center text-lg"
 >
-  <p class="font-medium text-xl lg:text-4xl lg:max-w-1/2 text-brown">
-    Mutati is a luxury firm specializing in elevating the private jet travel
+  <p>
+    <TextReveal
+      class="font-medium text-xl lg:text-4xl leading-10 lg:leading-14 lg:max-w-1/2 text-brown"
+      phrase="Mutati is a luxury firm specializing in elevating the private jet travel
     experience, blending high-end interior design with an exclusive line of
     aviation products. Its vision is to transform every cabin into an impeccable
     and sophisticated space, recognizing that a jet is not merely
-    transportation, but a personalized extension of its clients' lifestyle.
+    transportation, but a personalized extension of its clients' lifestyle."
+      delay={0.3}
+    />
   </p>
   <a
     href="/about"

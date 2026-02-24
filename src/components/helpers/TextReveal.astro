@@ -10,7 +10,7 @@ const { phrase, class: className, mode = "lines", delay = 0 } = Astro.props;
 ---
 
 <div class={className} data-split-mode={mode} data-delay={delay}>
-    <h2 class="gsap-reveal-text">{phrase}</h2>
+    <span class="gsap-reveal-text">{phrase}</span>
 </div>
 
 <style>

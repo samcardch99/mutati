@@ -2,14 +2,20 @@
 interface Props {
     phrase: string;
     class?: string;
-    delay?: number; // Agregado para el inicio del efecto
+    delay?: number;
 }
 
 const { phrase, class: className, delay = 0 } = Astro.props;
+
+// Convertimos *texto* en <b>texto</b> antes de renderizar
+const formattedPhrase = phrase.replace(
+    /\*(.*?)\*/g,
+    '<b class="font-bold">$1</b>',
+);
 ---
 
 <div class={`overflow-hidden ${className}`} data-delay={delay}>
-    <h2 class="gsap-hybrid-text invisible">{phrase}</h2>
+    <h2 class="gsap-hybrid-text invisible" set:html={formattedPhrase} />
 </div>
 
 <script>
@@ -51,11 +57,11 @@ const { phrase, class: className, delay = 0 } = Astro.props;
     const elements = document.querySelectorAll(".gsap-hybrid-text");
 
     elements.forEach((el) => {
-        // Obtenemos el delay del contenedor padre
         const container = el.parentElement as HTMLElement;
         const startDelay = parseFloat(container?.dataset.delay || "0");
 
-        const split = new SplitText(el, {
+        // SplitText respetará las etiquetas <b> inyectadas
+        const split = new SplitText(el as HTMLElement, {
             type: "lines,chars",
             linesClass: "overflow-hidden",
         });
@@ -72,7 +78,7 @@ const { phrase, class: className, delay = 0 } = Astro.props;
         gsap.from(split.chars, {
             yPercent: 100,
             duration: individualDuration,
-            delay: startDelay, // Solo afecta al inicio del efecto total
+            delay: startDelay,
             ease: "power3.out",
             stagger: {
                 each: staggerTime,
@@ -85,6 +91,7 @@ const { phrase, class: className, delay = 0 } = Astro.props;
             scrollTrigger: {
                 trigger: el,
                 start: "top 90%",
+                toggleActions: "play none none none",
             },
         });
     });

@@ -7,6 +7,7 @@ import Projects from "../components/Projects.astro";
 import BeforeAfter from "../components/BeforeAfter.astro";
 import InteriorSurface from "../components/InteriorSurface.astro";
 import FAQ from "../components/FAQ.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <Layout>
@@ -15,7 +16,7 @@ import FAQ from "../components/FAQ.astro";
     class="fixed inset-0 over -z-10 h-screen bg-[url('../assets/cover.jpg')] lg:bg-[url('../assets/cover_desktop.jpg')] will-change-transform bg-cover bg-center bg-no-repeat blur-md scale-[1.1]"
   >
   </div>
-  <section class="h-[200vh] w-full relative z-0">
+  <section id="scroll-container" class="h-[200vh] w-full relative z-0">
     <div class="h-screen w-full">
       <Home />
     </div>

@@ -3,9 +3,10 @@ interface Props {
     phrase: string;
     class?: string;
     delay?: number;
+    duration?: number;
 }
 
-const { phrase, class: className, delay = 0 } = Astro.props;
+const { phrase, class: className, delay = 0, duration = 0.05 } = Astro.props;
 
 // Pre-procesamos la frase para convertir *texto* en <b>texto</b>
 const formattedPhrase = phrase.replace(
@@ -27,7 +28,8 @@ const cleanPhrase = phrase.replace(/\*/g, "");
     <span
         class="type-target absolute top-0 left-0 opacity-0"
         data-phrase={phrase}
-        data-delay={delay}></span>
+        data-delay={delay}
+        data-duration={duration}></span>
 </div>
 
 <script>
@@ -38,12 +40,12 @@ const cleanPhrase = phrase.replace(/\*/g, "");
 
     const targets = document.querySelectorAll(".type-target");
     const glitchChars = ["h", "x", "t", "y"];
-    const SECONDS_PER_CHAR = 0.05;
 
     targets.forEach((el) => {
         const target = el as HTMLElement;
         const rawPhrase = target.dataset.phrase || "";
         const startDelay = parseFloat(target.dataset.delay || "0");
+        const SECONDS_PER_CHAR = parseFloat(target.dataset.duration || "0.05");
 
         // Creamos un mapa de dónde están las negritas basándonos en los asteriscos
         let cleanText = "";
