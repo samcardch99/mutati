@@ -1,0 +1,1 @@
+import{g as r}from"./index.CB87Sc6I.js";import{S as o}from"./ScrollTrigger.Cv03IO65.js";r.registerPlugin(o);o.config({ignoreMobileResize:!0});r.to("#hero-bg",{filter:"blur(0px)",scrollTrigger:{trigger:"#scroll-container",start:"top top",end:"bottom bottom",scrub:!0}});
