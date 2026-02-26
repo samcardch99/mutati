@@ -1,9 +1,18 @@
 ---
 import { Image } from "astro:assets";
-import carousel1 from "../assets/carousel1.jpg";
-// Importación de componentes de animación
+// Importación de datos y componentes
+import projectsData from "../data/projects.json";
 import TypeWriter from "./helpers/TypeWriter.astro";
 import TextReveal from "./helpers/TextReveal.astro";
+
+interface ImageModule {
+  default: ImageMetadata;
+}
+
+// 1. Cargamos todas las imágenes de portada del directorio Projects
+const allPortadas = import.meta.glob<ImageModule>(
+  "../assets/Projects/*/Portada/*.{jpeg,jpg,png,gif,webp}",
+);
 ---
 
 <section
@@ -28,7 +37,7 @@ import TextReveal from "./helpers/TextReveal.astro";
       </div>
 
       <div
-        class="text-lg lg:text-3xl lg:font-light lg:max-w-full] lg:leading-normal"
+        class="text-lg lg:text-3xl lg:font-light lg:max-w-full lg:leading-normal"
       >
         <TextReveal
           class="text-balance"
@@ -41,26 +50,41 @@ import TextReveal from "./helpers/TextReveal.astro";
     <div
       class="w-full h-full max-w-4xl lg:max-w-1/2 flex flex-col items-center lg:order-1"
     >
-      <div class="swiper mx-0! w-full h-fit">
+      <div class="swiper mx-0! w-full h-fit aspect-square">
         <div class="swiper-wrapper">
           {
-            /* Slides repetidos - Se recomienda mapear desde un array en producción */
-          }
-          {
-            [1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
-              <div class="swiper-slide relative flex items-center justify-center">
-                {num === 1 && (
-                  <a class="absolute inset-0 bg-black/60 font-light transition-colors duration-300 text-light text-2xl text-center content-center z-10">
-                    View Project
+            projectsData.map((project) => {
+              // Construimos la ruta de la portada para este proyecto específico
+              const portadaPath = `../assets/Projects/${project.id}/Portada/1.jpg`;
+
+              return (
+                <div class="swiper-slide relative flex items-center justify-center group overflow-hidden">
+                  {/* Link dinámico con efecto de hover profesional */}
+                  <a
+                    href={`/projects/${project.id}`}
+                    class="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all duration-500 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 z-20 cursor-pointer"
+                  >
+                    <span class="text-light text-4xl font-light italic tracking-widest border-b border-light/30 pb-2">
+                      View Project
+                    </span>
+                    <span class="text-lg uppercase tracking-[0.3em] mt-4 text-bone/60">
+                      {project.title.replace(/\*/g, "")}
+                    </span>
                   </a>
-                )}
-                <Image
-                  src={carousel1}
-                  alt={`Project ${num}`}
-                  class="w-full object-cover"
-                />
-              </div>
-            ))
+
+                  {allPortadas[portadaPath] && (
+                    <Image
+                      src={allPortadas[portadaPath]()}
+                      width={1920}
+                      height={1080}
+                      quality={60}
+                      alt={project.title}
+                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  )}
+                </div>
+              );
+            })
           }
         </div>
       </div>
@@ -71,15 +95,20 @@ import TextReveal from "./helpers/TextReveal.astro";
 
 <script>
   import Swiper from "swiper";
-  import { Pagination } from "swiper/modules";
+  import { Pagination, Autoplay, EffectFade } from "swiper/modules";
   import "swiper/css";
   import "swiper/css/pagination";
 
   new Swiper(".swiper", {
-    modules: [Pagination],
+    modules: [Pagination, Autoplay],
     pagination: { el: ".swiper-pagination", clickable: true },
     slidesPerView: 1,
     spaceBetween: 20,
+    loop: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
   });
 </script>
 
@@ -95,5 +124,9 @@ import TextReveal from "./helpers/TextReveal.astro";
   }
   :global(.swiper-pagination-bullet-active) {
     background-color: white !important;
+  }
+
+  .swiper-slide {
+    aspect-ratio: 16 / 9; /* Mantiene la proporción elegante para jets */
   }
 </style>

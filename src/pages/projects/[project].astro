@@ -1,0 +1,126 @@
+---
+import BackArrow from "../../assets/back_arrow.svg";
+import LayoutInterior from "../../layouts/Layout_Interior.astro";
+import { Image } from "astro:assets";
+import TypeWriter from "../../components/helpers/TypeWriter.astro";
+import TextReveal from "../../components/helpers/TextReveal.astro";
+import type { ImageMetadata } from "astro";
+import projectsData from "../../data/projects.json";
+
+export async function getStaticPaths() {
+    return projectsData.map((p) => ({
+        params: { project: p.id },
+        props: { data: p },
+    }));
+}
+
+const { project } = Astro.params;
+const { data } = Astro.props;
+
+interface ImageModule {
+    default: ImageMetadata;
+}
+
+const allImages = import.meta.glob<ImageModule>(
+    "../../assets/Projects/**/*.{jpeg,jpg,JPG,JPEG,png,PNG,webp,WEBP,gif,GIF}",
+);
+const portadaPath = `../../assets/Projects/${project}/Portada/1.jpg`;
+---
+
+<LayoutInterior>
+    <section
+        id="projects-interior"
+        class="relative w-full min-h-screen bg-black text-light pt-32 lg:pt-52 pb-8 lg:pb-20 px-6 lg:px-24 flex flex-col gap-16"
+    >
+        <div class="flex flex-col items-start justify-center gap-16">
+            <button
+                class="flex items-center gap-2 lg:gap-4 hover:scale-110 hover:text-bone/80 transition-all duration-300"
+                onclick="history.back()"
+            >
+                <BackArrow class="lg:w-16 lg:h-16 w-8 h-8" />
+                <span class="text-2xl md:text-4xl lg:text-6xl font-light">
+                    Back
+                </span>
+            </button>
+        </div>
+
+        <div
+            class="flex flex-col lg:flex-row justify-between lg:px-24 items-center lg:items-end gap-16"
+        >
+            {
+                allImages[portadaPath] && (
+                    <Image
+                        quality={60}
+                        width={1920}
+                        src={allImages[portadaPath]()}
+                        alt={`Portada ${data.title}`}
+                        class="object-cover w-full lg:max-w-[40%] shadow-2xl aspect-16/12"
+                    />
+                )
+            }
+
+            <div class="flex flex-col gap-10 justify-between">
+                <h1>
+                    <TypeWriter
+                        phrase={data.title}
+                        class="text-4xl md:text-6xl text-light"
+                    />
+                </h1>
+                <p class="max-w-2xl">
+                    <TextReveal
+                        phrase={data.description}
+                        class="text-xl md:text-3xl leading-relaxed text-light"
+                        delay={0.6}
+                    />
+                </p>
+            </div>
+        </div>
+
+        <div class="flex flex-col w-full gap-4 text-light">
+            <h2 class="text-4xl md:text-6xl font-bold">More Images</h2>
+            <div class="w-full bg-light h-0.5 opacity-30"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {
+                Array.from({ length: data.quantity }).map((_, i) => {
+                    const index = i + 1;
+                    // Buscamos en las llaves del glob la que coincida con el proyecto y el número
+                    // Esto ignorará si termina en .jpg, .webp o .png
+                    const imageKey = Object.keys(allImages).find((key) =>
+                        key.includes(
+                            `/Projects/${project}/Interiors/${index}.`,
+                        ),
+                    );
+
+                    if (imageKey) {
+                        return (
+                            <div class="overflow-hidden aspect-16/10 bg-neutral-900 group">
+                                <Image
+                                    quality={60}
+                                    width={1280}
+                                    src={allImages[imageKey]()}
+                                    alt={`${data.title} detail ${index}`}
+                                    class="w-full h-full object-cover md:grayscale md:group-hover:grayscale-0 transition-all duration-700 md:group-hover:scale-110"
+                                />
+                            </div>
+                        );
+                    }
+                    return null;
+                })
+            }
+        </div>
+
+        <div
+            class="sticky bottom-0 left-0 w-full h-52 bg-linear-to-t from-black via-black/40 to-transparent pointer-events-none z-50"
+        >
+        </div>
+    </section>
+</LayoutInterior>
+
+<style>
+    img {
+        backface-visibility: hidden;
+        transform: translateZ(0);
+    }
+</style>

@@ -1,0 +1,32 @@
+[
+    {
+        "id": "Mclareen_N902AG",
+        "title": "MCLAREN *N902AG*",
+        "description": "A striking, high-contrast monochrome cabin blending pristine white leather seating with glossy black finishes and sleek carbon fiber accents. Custom details—such as fluid marble-effect countertops, integrated touch controls, and refined galley fixtures—create an ultra-luxurious, modern aesthetic focused on absolute sophistication.",
+        "quantity": 19
+    },
+    {
+        "id": "Gulfstream_GIV_DG",
+        "title": "GULFSTREAM *GIV DG*",
+        "description": "A masterful interpretation of contemporary luxury based on a high-contrast scheme. The cabin features snow-white leather seating with a geometric stitching pattern that adds texture and depth, framed by piano black and mirror-finish carbon fiber accents. The integration of hidden touch controls and uniform overhead lighting enhances an atmosphere of technical precision and exclusivity, designed for a fluid and sophisticated flight experience.",
+        "quantity": 19
+    },
+    {
+        "id": "Challenger_604_N812G",
+        "title": "CHALLENGER *604 N812G*",
+        "description": "A cabin of timeless elegance defined by a harmonious palette of warm tones. The cream-colored leather seats, enhanced by an intricate diamond stitching pattern, perfectly complement the rich medium-grain wood veneer finishes on the cabinetry and side ledges. Details like polished silver hardware and a beige textured carpet create a cozy and refined aesthetic, focused on classic comfort and luminous sophistication.",
+        "quantity": 11
+    },
+    {
+        "id": "G_200_N119PS",
+        "title": "G-200 *N119PS* ",
+        "description": "A striking high-contrast monochromatic cabin that fuses pristine white leather seating with dazzling glossy black finishes. Custom details—such as the elegant diamond stitching pattern, ultra-polished pull-out tables, gold-toned hardware, and integrated touch controls—create a modern and ultra-luxurious aesthetic focused on absolute sophistication.",
+        "quantity": 12
+    },
+    {
+        "id": "Citation_Sovereing",
+        "title": "CITATION *SOVEREIGN*",
+        "description": "A high-contrast cabin that merges the purity of white leather with high-gloss dark wood finishes. Artisanal details such as diamond stitching and integrated digital controls define a modern luxury aesthetic. A space designed for absolute sophistication and comfort in every detail.",
+        "quantity": 13
+    }
+]

@@ -7,13 +7,13 @@ import Projects from "../components/Projects.astro";
 import BeforeAfter from "../components/BeforeAfter.astro";
 import InteriorSurface from "../components/InteriorSurface.astro";
 import FAQ from "../components/FAQ.astro";
-import Footer from "../components/Footer.astro";
+import ProjectVideo from "../components/ProjectVideo.astro";
 ---
 
 <Layout>
   <div
     id="hero-bg"
-    class="fixed inset-0 over -z-10 h-screen bg-[url('../assets/cover.jpg')] lg:bg-[url('../assets/cover_desktop.jpg')] will-change-transform bg-cover bg-center bg-no-repeat blur-md scale-[1.1]"
+    class="fixed inset-0 overflow-hidden -z-10 h-screen bg-[url('../assets/cover.jpg')] lg:bg-[url('../assets/cover_desktop.jpg')] will-change-transform bg-cover bg-center bg-no-repeat blur-md scale-[1.1]"
   >
   </div>
   <section id="scroll-container" class="h-[200vh] w-full relative z-0">
@@ -26,6 +26,7 @@ import Footer from "../components/Footer.astro";
   </section>
   <Statistics />
   <Projects />
+  <ProjectVideo />
   <BeforeAfter />
   <InteriorSurface />
   <FAQ />
@@ -35,6 +36,11 @@ import Footer from "../components/Footer.astro";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
 
     gsap.registerPlugin(ScrollTrigger);
+
+    // Evita saltos por el cambio de tamaño de la barra de direcciones en móvil
+    ScrollTrigger.config({
+      ignoreMobileResize: true,
+    });
 
     gsap.to("#hero-bg", {
       filter: "blur(0px)",
@@ -46,13 +52,4 @@ import Footer from "../components/Footer.astro";
       },
     });
   </script>
-  <style>
-    main {
-      scroll-snap-type: y mandatory;
-      margin-right: 0 !important;
-
-      scroll-behavior: smooth;
-      overflow: scroll;
-    }
-  </style>
 </Layout>

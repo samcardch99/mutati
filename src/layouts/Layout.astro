@@ -8,7 +8,7 @@ import Footer from "../components/Footer.astro";
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
@@ -23,27 +23,21 @@ import Footer from "../components/Footer.astro";
 
 <style>
   html {
-    scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
   }
 
   html,
   body {
     z-index: -20;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     margin: 0;
     padding: 0;
     width: 100%;
+    position: relative;
   }
 
   /* Ocultar barra en Chrome, Safari y Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
-  }
-
-  /* Ocultar barra en IE, Edge y Firefox */
-  .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
   }
 </style>

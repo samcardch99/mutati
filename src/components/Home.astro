@@ -29,12 +29,13 @@ import Logo_Large from "../assets/logo_large.svg";
       <span class="font-bold italic">Craftsmanship</span>
     </h1>
 
-    <div id="hero-line" class="h-1 w-full bg-brown mb-16 origin-center"></div>
+    <div id="hero-line" class="h-1 w-full bg-brown mb-6 md:mb-16 origin-center">
+    </div>
 
     <div id="logo-reference" class="w-full flex justify-center relative z-20">
       <Logo_Large
         id="main-logo-ref"
-        class="w-full md:w-3/5 text-brown opacity-0 pointer-events-none"
+        class="w-full md:w-3/5 text-brown opacity-100 md:opacity-0 pointer-events-none"
       />
     </div>
   </div>
@@ -95,6 +96,8 @@ import Logo_Large from "../assets/logo_large.svg";
       0,
     )
       .to(sideTexts, { opacity: 0, duration: 0.8, ease: "none" }, 0)
+      .to(logoRef, { opacity: 0, duration: 0.8, ease: "none" }, 0)
+
       .to(
         navLogo,
         {
