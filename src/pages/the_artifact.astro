@@ -8,77 +8,154 @@ import Artifact4 from "../assets/artifact_4.jpg";
 import Artifact5 from "../assets/artifact_5.jpg";
 import Artifact6 from "../assets/artifact_6.jpg";
 import RightArrow from "../assets/right_arrow.svg";
+import TextReveal from "../components/helpers/TextReveal.astro";
+import BackArrow from "../assets/back_arrow.svg";
 ---
 
 <Layout_Interior>
   <section
-    class="min-h-screen lg:h-screen w-full flex flex-col lg:flex-row justify-between lg:items-end py-36 lg:py-40 bg-[#F3F3F3] px-6 lg:px-24 gap-0 lg:gap-0"
+    id="the-artifact"
+    data-nav-color="text-red"
+    class="relative min-h-screen lg:h-screen w-full flex flex-col lg:flex-row justify-between lg:items-end pt-48 pb-10 lg:py-40 bg-[#F3F3F3] px-6 lg:px-24 gap-0 lg:gap-0"
   >
-    <h2
-      class="text-xl text-center lg:text-left lg:text-4xl w-full lg:max-w-[40%] leading-normal lg:leading-16 order-2 lg:order-1"
+    <a
+      class="absolute top-40 lg:top-44 left-6 lg:left-24 flex items-center gap-2 lg:gap-4 hover:scale-110 cursor-pointer hover:text-red/80 transition-all duration-300"
+      href="/#the_artifact"
     >
-      The Artifact serves as the tangible conclusion of each aeronautical
+      <BackArrow class="lg:w-16 lg:h-16 w-8 h-8" />
+      <span class="text-2xl md:text-4xl lg:text-6xl font-light"> Back </span>
+    </a>
+    <p>
+      <TextReveal
+        class="mutati-text text-xl text-center lg:text-left lg:text-4xl w-full lg:max-w-[40%] leading-normal lg:leading-16 order-2 lg:order-1"
+        phrase="The Artifact serves as the tangible conclusion of each aeronautical
       commission. This engineered enclosure houses the registered project plate,
       raw material samples, and the comprehensive Project Book. To ensure
       aesthetic continuity beyond the cabin, the set integrates proprietary
       Mutati travel assets —including custom-designed luggage and carry-all
       bags— all unified under the same technical nomenclature and reserved
-      exclusively for the Holder.
-    </h2>
-
-    <div class="w-full lg:w-1/2 h-[50vh] lg:h-full relative group">
-      <div class="swiper h-full w-full rounded-2xl overflow-hidden">
-        <div class="swiper-wrapper">
-          {
-            [
-              Artifact1,
-              Artifact2,
-              Artifact3,
-              Artifact4,
-              Artifact5,
-              Artifact6,
-            ].map((artifact, index) => (
-              <div class="swiper-slide h-full w-full">
-                <Image
-                  src={artifact}
-                  alt={`artifact ${index + 1}`}
-                  class={`h-full w-full object-contain ${index === 0 && "scale-75"}`}
-                />
-              </div>
-            ))
-          }
+      exclusively for the Holder."
+      />
+      <div
+        class="mutati-image-wrapper w-full lg:w-1/2 h-[50vh] lg:h-full relative group order-1 lg:order-2 mb-8 lg:mb-0"
+      >
+        <div
+          class="swiper mutati-image h-full w-full rounded-2xl overflow-hidden origin-bottom"
+        >
+          <div class="swiper-wrapper">
+            {
+              [
+                Artifact1,
+                Artifact2,
+                Artifact3,
+                Artifact4,
+                Artifact5,
+                Artifact6,
+              ].map((artifact, index) => (
+                <div class="swiper-slide h-full w-full">
+                  <Image
+                    src={artifact}
+                    alt={`artifact ${index + 1}`}
+                    class={`h-full w-full object-contain ${index === 0 && "scale-75"}`}
+                  />
+                </div>
+              ))
+            }
+          </div>
         </div>
+
+        <button
+          class="mutati-nav prev-nav absolute left-0 lg:left-10 top-1/2 -translate-y-1/2 z-10 cursor-pointer transition-transform hover:scale-110 active:scale-95"
+        >
+          <RightArrow class="w-12 h-12 lg:w-16 lg:h-16 rotate-180 text-red" />
+        </button>
+        <button
+          class="mutati-nav next-nav absolute right-0 lg:right-10 top-1/2 -translate-y-1/2 z-10 cursor-pointer transition-transform hover:scale-110 active:scale-95"
+        >
+          <RightArrow class="w-12 h-12 lg:w-16 lg:h-16 text-red" />
+        </button>
       </div>
-      <button
-        class="prev-nav absolute left-0 lg:left-10 top-1/2 -translate-y-1/2 z-10 cursor-pointer transition-transform hover:scale-110 active:scale-95"
-      >
-        <RightArrow class="w-12 h-12 lg:w-16 lg:h-16 rotate-180 text-red" />
-      </button>
-      <button
-        class="next-nav absolute right-0 lg:right-10 top-1/2 -translate-y-1/2 z-10 cursor-pointer transition-transform hover:scale-110 active:scale-95"
-      >
-        <RightArrow class="w-12 h-12 lg:w-16 lg:h-16 text-red" />
-      </button>
-    </div>
 
-    <script>
-      import Swiper from "swiper";
-      import { Navigation, Autoplay } from "swiper/modules";
-      import "swiper/css";
-      import "swiper/css/navigation";
+      <script>
+        import Swiper from "swiper";
+        import { Navigation, Autoplay } from "swiper/modules";
+        import "swiper/css";
+        import "swiper/css/navigation";
 
-      new Swiper(".swiper", {
-        modules: [Navigation, Autoplay],
-        loop: true,
-        autoplay: {
-          delay: 3500,
-          disableOnInteraction: false,
-        },
-        navigation: {
-          nextEl: ".next-nav",
-          prevEl: ".prev-nav",
-        },
-      });
-    </script>
+        new Swiper(".swiper", {
+          modules: [Navigation, Autoplay],
+          loop: true,
+          autoplay: {
+            delay: 3500,
+            disableOnInteraction: false,
+          },
+          navigation: {
+            nextEl: ".next-nav",
+            prevEl: ".prev-nav",
+          },
+        });
+      </script>
+    </p>
   </section>
+
+  <style>
+    /* Animaciones "MUTATI Style" */
+
+    /* Estados iniciales */
+    .mutati-text,
+    .mutati-nav {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    /* Retrasos escalonados */
+    .mutati-text {
+      animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+    }
+
+    .mutati-image-wrapper {
+      clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+      animation: revealMask 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+    }
+
+    .mutati-image {
+      transform: scale(1.15);
+      animation: scaleDown 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+    }
+
+    .mutati-nav {
+      /* Los botones entran después de que el slider ya se reveló */
+      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
+    }
+
+    /* Keyframes */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes revealMask {
+      from {
+        clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+      }
+      to {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+    }
+
+    @keyframes scaleDown {
+      from {
+        transform: scale(1.15);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+  </style>
 </Layout_Interior>

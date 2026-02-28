@@ -1,11 +1,12 @@
 ---
-import PrimaryButton from "../helpers/PrimaryButton.astro";
+import PrimaryButton from "../../components/helpers/PrimaryButton.astro";
 import Logo_Large from "../../assets/logo_large.svg";
-import Form from "../helpers/Form.jsx";
+import Form from "../../components/helpers/Form.jsx";
 ---
 
 <section
     id="footer"
+    data-nav-color="text-brown"
     class="min-h-screen flex flex-col lg:gap-20 w-full bg-light pt-36 pb-20 px-6 lg:px-24 content-end"
 >
     <Form client:visible language="en" />
@@ -29,6 +30,7 @@ import Form from "../helpers/Form.jsx";
                 text="Instagram"
             />
         </div>
+
         <div
             class="flex-col lg:flex-row gap-8 w-full justify-center lg:justify-between hidden lg:flex lg:order-1"
         >
@@ -36,20 +38,38 @@ import Form from "../helpers/Form.jsx";
                 <h3 class="text-xl lg:text-4xl font-bold lg:leading-normal">
                     Address
                 </h3>
-                <h4 class="text-lg lg:text-3xl lg:leading-normal">
-                    12255 SW 128th St Suite 402,<br class="hidden lg:block" /> Miami,
-                    Florida 33186
-                </h4>
+                <a
+                    href="https://maps.google.com/?q=12255+SW+128th+St+Suite+402,+Miami,+Florida+33186"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="hover-underline-animation"
+                >
+                    <h4
+                        class="text-lg lg:text-3xl lg:leading-normal inline-block"
+                    >
+                        12255 SW 128th St Suite 402,<br
+                            class="hidden lg:block"
+                        /> Miami, Florida 33186
+                    </h4>
+                </a>
             </div>
             <div class="lg:text-right">
                 <h3 class="text-xl lg:text-4xl font-bold lg:leading-normal">
                     Email Us
                 </h3>
-                <h4 class="text-lg lg:text-3xl lg:leading-normal">
-                    info@mutatidesign.com
-                </h4>
+                <a
+                    href="mailto:info@mutatidesign.com"
+                    class="hover-underline-animation"
+                >
+                    <h4
+                        class="text-lg lg:text-3xl lg:leading-normal inline-block"
+                    >
+                        info@mutatidesign.com
+                    </h4>
+                </a>
             </div>
         </div>
+
         <div
             class="flex flex-col items-start justify-center text-left gap-8 w-full lg:order-2"
         >
@@ -58,15 +78,30 @@ import Form from "../helpers/Form.jsx";
             >
                 <div>
                     <h3 class="text-xl font-bold">Address</h3>
-                    <h4 class="text-lg">
-                        12255 SW 128th St Suite 402, Miami, Florida 33186
-                    </h4>
+                    <a
+                        href="https://maps.google.com/?q=12255+SW+128th+St+Suite+402,+Miami,+Florida+33186"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="hover-underline-animation"
+                    >
+                        <h4 class="text-lg inline-block">
+                            12255 SW 128th St Suite 402, Miami, Florida 33186
+                        </h4>
+                    </a>
                 </div>
                 <div>
                     <h3 class="text-xl font-bold">Email Us</h3>
-                    <h4 class="text-lg">info@mutatidesign.com</h4>
+                    <a
+                        href="mailto:info@mutatidesign.com"
+                        class="hover-underline-animation"
+                    >
+                        <h4 class="text-lg inline-block">
+                            info@mutatidesign.com
+                        </h4>
+                    </a>
                 </div>
             </div>
+
             <div
                 class="flex-rowjustify-between items-stretch justify-between w-full gap-12 hidden lg:flex text-xl lg:text-4xl"
             >
@@ -89,3 +124,36 @@ import Form from "../helpers/Form.jsx";
         </div>
     </div>
 </section>
+
+<style>
+    /* Efecto Hover: Underline de izquierda a derecha */
+    .hover-underline-animation {
+        display: inline-block;
+        position: relative;
+        text-decoration: none;
+    }
+
+    /* Añadimos margin-bottom para que la línea no quede pegada a la letra 'p' o 'g' */
+    .hover-underline-animation h4 {
+        position: relative;
+        padding-bottom: 2px;
+    }
+
+    .hover-underline-animation h4::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 1px; /* Grosor de la línea */
+        bottom: 0;
+        left: 0;
+        background-color: currentColor; /* Usa el color del texto actual */
+        transform-origin: bottom right;
+        transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .hover-underline-animation:hover h4::after {
+        transform: scaleX(1);
+        transform-origin: bottom left; /* Expande desde la izquierda hacia la derecha */
+    }
+</style>

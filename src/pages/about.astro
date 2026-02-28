@@ -8,17 +8,35 @@ import AboutInteriorImage3 from "../assets/about_interior_3.jpg";
 import AboutInteriorImage1Desktop from "../assets/about_interior_1_desktop.jpg";
 import AboutInteriorImage2Desktop from "../assets/about_interior_2_desktop.jpg";
 import AboutInteriorImage3Desktop from "../assets/about_interior_3_desktop.jpg";
-import Contact from "../components/Interiors/Contact.astro";
+import BackArrow from "../assets/back_arrow.svg";
+import RevealType from "../components/helpers/RevealType.astro";
 ---
 
 <Layout_Interior>
-  <section id="about-interior-1" class="w-full bg-brown text-light relative">
+  <section
+    id="about-interior"
+    data-nav-color="text-light"
+    class="w-full bg-brown text-light relative -mb-px"
+  >
     <div
-      class="h-[80vh] flex flex-col items-center lg:items-start lg:px-24 justify-start gap-12 lg:gap-20 pt-36 px-6"
+      class="min-h-[80vh] flex flex-col items-center lg:items-start lg:px-24 justify-start gap-12 lg:gap-20 pt-40 px-6"
     >
-      <h1 class="text-5xl font-bold italic lg:text-8xl">About Us</h1>
+      <a
+        class="flex w-fit self-start items-center gap-2 lg:gap-4 hover:scale-110 cursor-pointer hover:text-bone/80 transition-all duration-300"
+        href="/#about-section"
+      >
+        <BackArrow class="lg:w-12 lg:h-12 w-8 h-8" />
+        <span class="text-2xl md:text-4xl lg:text-5xl font-light"> Back </span>
+      </a>
+      <h1>
+        <RevealType
+          phrase="About Us"
+          class="text-5xl font-bold italic lg:text-8xl"
+        />
+      </h1>
       <p
-        class="text-lg lg:text-5xl text-center lg:self-center max-w-2xl lg:max-w-4/5 leading-8 lg:leading-20 lg:text-light/75"
+        id="reading-text"
+        class="text-lg lg:text-5xl text-center lg:self-center max-w-2xl lg:max-w-4/5 leading-8 lg:leading-20 text-white/20 pb-10"
       >
         Mutati operates as an atelier where industrial repetition is replaced by
         artisanal precision and registered intellectual property. Each
@@ -29,94 +47,211 @@ import Contact from "../components/Interiors/Contact.astro";
         authorship and airworthiness.
       </p>
     </div>
-    <section class="h-[120vh] w-full relative">
+  </section>
+
+  <div id="horizontal-wrapper" class="relative h-[400vh] w-full bg-brown">
+    <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center">
       <div
-        class="flex lg:block justify-between lg:justify-normal items-center inset-x-6 lg:inset-x-auto lg:w-full lg:px-[36%] lg:bottom-auto lg:top-1/2 absolute z-10 bottom-16 lg:text-brown"
+        id="horizontal-track"
+        class="flex h-full w-[300vw] will-change-transform"
       >
-        <h2
-          class="text-[clamp(1.5rem,8vw,4rem)] leading-12 lg:leading-16 text-left lg:text-right italic lg:-translate-x-full w-full"
+        <section class="w-screen h-screen relative shrink-0">
+          <div
+            class="flex lg:block justify-between lg:justify-normal items-center inset-x-6 lg:inset-x-auto lg:w-full lg:px-[36%] lg:bottom-auto lg:top-1/2 absolute z-10 bottom-16 lg:text-brown"
+          >
+            <h2
+              class="text-[clamp(1.5rem,8vw,4rem)] text-light lg:text-brown leading-12 lg:leading-16 text-left lg:text-right italic lg:-translate-x-full w-full"
+            >
+              <b> Bespoke Cabin </b>
+              <br />
+              Architecture
+            </h2>
+            <h2
+              class="text-[clamp(1.5rem,8vw,4rem)] leading-12 lg:leading-16 text-left italic hidden lg:block lg:translate-x-full -translate-y-full"
+            >
+              Curated <b>
+                Interior
+                <br />
+                Enviornments
+              </b>
+            </h2>
+            <RightArrow
+              class="scroll-next-btn cursor-pointer transition-transform duration-300 hover:scale-110 w-16 lg:w-20 text-light lg:text-brown lg:absolute lg:top-1/2 lg:right-16 lg:-translate-y-full"
+            />
+          </div>
+
+          <Image
+            src={AboutInteriorImage1}
+            alt="Bespoke cabin architecture by Mutati Design"
+            class="lg:hidden h-full w-full absolute bottom-0 object-cover"
+          />
+          <Image
+            src={AboutInteriorImage1Desktop}
+            alt="Bespoke cabin architecture by Mutati Design"
+            class="hidden lg:block h-full w-full absolute bottom-0 object-cover"
+          />
+        </section>
+
+        <section
+          id="about-interior-2"
+          class="w-screen h-screen pt-36 lg:pt-0 text-brown relative shrink-0"
         >
-          <b> Bespoke Cabin </b>
-          <br />
-          Architecture
-        </h2>
-        <h2
-          class="text-[clamp(1.5rem,8vw,4rem)] leading-12 lg:leading-16 text-left italic hidden lg:block lg:translate-x-full -translate-y-full"
+          <Image
+            src={AboutInteriorImage2}
+            alt="Bespoke cabin architecture by Mutati Design"
+            class="lg:hidden h-full w-full absolute bottom-0 object-cover"
+          />
+          <Image
+            src={AboutInteriorImage2Desktop}
+            alt="Bespoke cabin architecture by Mutati Design"
+            class="hidden lg:block h-full w-full absolute bottom-0 object-cover"
+          />
+          <div
+            class="flex justify-between items-center inset-x-6 absolute z-10 bottom-16 lg:relative lg:h-full lg:inset-auto lg:px-24"
+          >
+            <h2
+              class="text-[clamp(1.5rem,8vw,4rem)] leading-12 lg:leading-16 text-left italic lg:translate-y-1/2"
+            >
+              <b> Artisanal</b>
+              <br />
+              Interior Assets
+            </h2>
+            <RightArrow
+              class="scroll-next-btn cursor-pointer transition-transform duration-300 hover:scale-110 w-16 lg:w-20 text-brown lg:translate-y-1/2"
+            />
+          </div>
+        </section>
+
+        <section
+          id="about-interior-3"
+          class="w-screen h-screen pt-36 text-brown relative shrink-0"
         >
-          Curated <b>
-            Interior
-            <br />
-            Enviornments
-          </b>
-        </h2>
-        <RightArrow
-          class="w-16 lg:w-20 text-light lg:text-brown lg:absolute lg:top-1/2 lg:right-16 lg:-translate-y-full"
-        />
+          <Image
+            src={AboutInteriorImage3}
+            alt="Bespoke cabin architecture by Mutati Design"
+            class="lg:hidden h-full w-full absolute bottom-0 object-cover"
+          />
+          <Image
+            src={AboutInteriorImage3Desktop}
+            alt="Bespoke cabin architecture by Mutati Design"
+            class="hidden lg:block h-full w-full absolute bottom-0 object-cover"
+          />
+
+          <div
+            class="flex justify-between items-center inset-x-6 absolute z-10 bottom-16 lg:relative lg:h-full lg:inset-auto lg:px-24"
+          >
+            <h2
+              class="text-[clamp(1.5rem,8vw,4rem)] leading-12 lg:leading-16 text-left italic lg:-translate-y-1/2"
+            >
+              Certified <br /><b>Sensory Engineering</b>
+            </h2>
+            <RightArrow
+              class="scroll-next-btn cursor-pointer transition-transform duration-300 hover:scale-110 w-16 lg:w-20 text-brown lg:-translate-y-1/2"
+            />
+          </div>
+        </section>
       </div>
-
-      <Image
-        src={AboutInteriorImage1}
-        alt="Bespoke cabin architecture by Mutati Design"
-        class="lg:hidden h-full w-full absolute bottom-0 object-cover"
-      />
-      <Image
-        src={AboutInteriorImage1Desktop}
-        alt="Bespoke cabin architecture by Mutati Design"
-        class="hidden lg:block h-full w-full absolute bottom-0 object-cover"
-      />
-    </section>
-  </section>
-  <section
-    id="about-interior-2"
-    class="h-screen w-full pt-36 lg:pt-0 text-brown relative"
-  >
-    <Image
-      src={AboutInteriorImage2}
-      alt="Bespoke cabin architecture by Mutati Design"
-      class="lg:hidden h-full w-full absolute bottom-0 object-cover"
-    />
-    <Image
-      src={AboutInteriorImage2Desktop}
-      alt="Bespoke cabin architecture by Mutati Design"
-      class="hidden lg:block h-full w-full absolute bottom-0 object-cover"
-    />
-    <div
-      class="flex justify-between items-center inset-x-6 absolute z-10 bottom-16 lg:relative lg:h-full lg:inset-auto lg:px-24"
-    >
-      <h2
-        class="text-[clamp(1.5rem,8vw,4rem)] leading-12 lg:leading-16 text-left italic"
-      >
-        <b> Artisanal</b>
-        <br />
-        Interior Assets
-      </h2>
-      <RightArrow class="w-16 lg:w-20 text-brown" />
     </div>
-  </section>
-  <section
-    id="about-interior-3"
-    class="h-screen w-full pt-36 text-brown relative"
-  >
-    <Image
-      src={AboutInteriorImage3}
-      alt="Bespoke cabin architecture by Mutati Design"
-      class="lg:hidden h-full w-full absolute bottom-0 object-cover"
-    />
-    <Image
-      src={AboutInteriorImage3Desktop}
-      alt="Bespoke cabin architecture by Mutati Design"
-      class="hidden lg:block h-full w-full absolute bottom-0 object-cover"
-    />
-
-    <div
-      class="flex justify-between items-center inset-x-6 absolute z-10 bottom-16 lg:relative lg:h-full lg:inset-auto lg:px-24"
-    >
-      <h2
-        class="text-[clamp(1.5rem,8vw,4rem)] leading-12 lg:leading-16 text-left italic"
-      >
-        Certified <br /><b>Sensory Engineering</b>
-      </h2>
-      <RightArrow class="w-16 lg:w-20 text-brown" />
-    </div>
-  </section>
+  </div>
 </Layout_Interior>
+
+<style is:global>
+  /* Estilos para la animación de las palabras */
+  .reading-word {
+    display: inline-block;
+    transition:
+      color 0.5s ease,
+      opacity 0.5s ease;
+  }
+
+  .reading-word.highlight {
+    color: #ffffff; /* Color vivo al leerse */
+    opacity: 1;
+  }
+
+  /* Transición suave para el track horizontal */
+  #horizontal-track {
+    transition: transform 0.1s linear;
+  }
+</style>
+
+<script>
+  // Lógica del Scroll Horizontal y Clicks
+  function initHorizontalScroll() {
+    const wrapper = document.getElementById("horizontal-wrapper");
+    const track = document.getElementById("horizontal-track");
+    const nextButtons = document.querySelectorAll(".scroll-next-btn");
+
+    if (!wrapper || !track) return;
+
+    // Movimiento basado en scroll
+    window.addEventListener("scroll", () => {
+      const wrapperTop = wrapper.offsetTop;
+      const windowHeight = window.innerHeight;
+
+      // Calcular progreso (de 0 a 1)
+      let progress =
+        (window.scrollY - wrapperTop) / (wrapper.offsetHeight - windowHeight);
+      progress = Math.max(0, Math.min(1, progress));
+
+      // Mover el contenedor en función del progreso
+      const xTranslate = progress * 200;
+      track.style.transform = `translateX(-${xTranslate}vw)`;
+    });
+
+    // Clicks en las flechas
+    nextButtons.forEach((btn, index) => {
+      btn.addEventListener("click", () => {
+        const wrapperTop = wrapper.offsetTop;
+        const windowHeight = window.innerHeight;
+        const scrollableDistance = wrapper.offsetHeight - windowHeight;
+
+        // Calculamos a qué progreso (0, 0.5, 1.0, etc.) queremos scrollear
+        // según qué botón presionamos. El botón 1 (index 0) lleva al progreso 0.5.
+        // El botón 3 (index 2) llevará al progreso 1.5, lo cual saca al usuario del scroll horizontal hacia abajo.
+        const targetProgress = (index + 1) * 0.5;
+        const targetScrollY = wrapperTop + scrollableDistance * targetProgress;
+
+        // Simulamos un scroll vertical suave hasta esa posición
+        window.scrollTo({
+          top: targetScrollY,
+          behavior: "smooth",
+        });
+      });
+    });
+  }
+
+  // Animación de texto original
+  function initTextAnimation() {
+    const textElement = document.getElementById("reading-text");
+    if (!textElement) return;
+
+    const content = textElement.innerText;
+    const words = content.split(" ");
+
+    // Limpiamos y envolvemos cada palabra en un span
+    textElement.innerHTML = words
+      .map((word) => `<span class="reading-word">${word}</span>`)
+      .join(" ");
+
+    const spans = textElement.querySelectorAll(".reading-word");
+
+    // Disparamos la secuencia de color palabra por palabra
+    spans.forEach((span, index) => {
+      setTimeout(() => {
+        span.classList.add("highlight");
+      }, index * 160); // 160ms de retraso entre palabras
+    });
+  }
+
+  // Ejecución en carga inicial y soporte para transiciones de Astro
+  document.addEventListener("DOMContentLoaded", () => {
+    initTextAnimation();
+    initHorizontalScroll();
+  });
+
+  document.addEventListener("astro:page-load", () => {
+    initTextAnimation();
+    initHorizontalScroll();
+  });
+</script>

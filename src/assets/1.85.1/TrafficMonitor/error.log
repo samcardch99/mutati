@@ -27,3 +27,6 @@
 2026/02/25 21:20:02.601: An exception may have occurred, the currently selected connection is inconsistent with the expected connection. The connection has been retrieved. (17 times has been reinitialized)
 2026/02/26 06:27:31.390: An exception may have occurred, the currently selected connection is inconsistent with the expected connection. The connection has been retrieved. (18 times has been reinitialized)
 2026/02/26 09:19:43.995: The size of the buffer used to store connection information is not enough, the connection has been reinitialized. (19 times has been reinitialized)
+2026/02/26 18:11:57.420: An exception may have occurred, the currently selected connection is inconsistent with the expected connection. The connection has been retrieved. (1 times has been reinitialized)
+2026/02/27 22:24:49.398: An exception may have occurred, the currently selected connection is inconsistent with the expected connection. The connection has been retrieved. (2 times has been reinitialized)
+2026/02/27 22:45:58.653: An exception may have occurred, the currently selected connection is inconsistent with the expected connection. The connection has been retrieved. (3 times has been reinitialized)

@@ -1,13 +1,30 @@
 ---
 import { Image } from "astro:assets";
-import before1 from "../assets/before.png";
-import after1 from "../assets/after.png";
-import before2 from "../assets/before2.png";
-import after2 from "../assets/after2.png";
+
+// Importamos todas las imágenes
+import before1 from "../assets/BeforeAfter/before1.jpg";
+import after1 from "../assets/BeforeAfter/after1.jpg";
+import before2 from "../assets/BeforeAfter/before2.jpg";
+import after2 from "../assets/BeforeAfter/after2.jpg";
+import before3 from "../assets/BeforeAfter/before3.jpg";
+import after3 from "../assets/BeforeAfter/after3.jpg";
+import before4 from "../assets/BeforeAfter/before4.jpg";
+import after4 from "../assets/BeforeAfter/after4.jpg";
+import before5 from "../assets/BeforeAfter/before5.jpg";
+import after5 from "../assets/BeforeAfter/after5.jpg";
+
+const photos = [
+  { before: before1, after: after1, alt: "Interior Jet 1" },
+  { before: before2, after: after2, alt: "Asiento Cuero 2" },
+  { before: before3, after: after3, alt: "Cocina/Galley 3" },
+  { before: before4, after: after4, alt: "Detalle Ventana 4" },
+  { before: before5, after: after5, alt: "Sofá Principal 5" },
+];
 ---
 
 <section
-  id="section-trigger"
+  id="before-after"
+  data-nav-color="text-light"
   class="w-full min-h-screen flex flex-col lg:flex-row pt-44 pb-20 justify-between items-center gap-12 lg:gap-20 text-light bg-black px-6 lg:px-24 select-none"
 >
   <h2
@@ -29,48 +46,34 @@ import after2 from "../assets/after2.png";
     id="comparison-container"
     class="relative h-full max-h-[70vh] w-full max-w-4xl aspect-square lg:aspect-9/16 overflow-hidden lg:flex-[1.6] cursor-ew-resize border border-white/10"
   >
-    <div id="pair-1" class="absolute inset-0 z-10">
-      <Image
-        src={after1}
-        alt="After 1"
-        class="after-img absolute inset-0 w-full h-full object-contain"
-      />
-      <div
-        id="wrapper-1"
-        class="before-wrapper absolute inset-0 w-1/2 overflow-hidden z-10 border-r border-white/50"
-      >
-        <Image
-          src={before1}
-          alt="Before 1"
-          class="before-img absolute inset-0 object-contain"
-        />
-      </div>
-    </div>
-
-    <div id="pair-2" class="absolute inset-0 z-0 opacity-0">
-      <Image
-        src={after2}
-        alt="After 2"
-        class="after-img absolute inset-0 w-full h-full object-contain"
-      />
-      <div
-        id="wrapper-2"
-        class="before-wrapper absolute inset-0 w-1/2 overflow-hidden z-10 border-r border-white/50"
-      >
-        <Image
-          src={before2}
-          alt="Before 2"
-          class="before-img absolute inset-0 object-contain"
-        />
-      </div>
-    </div>
+    {
+      photos.map((pair, index) => (
+        <div
+          id={`pair-${index}`}
+          class={`pair-group absolute inset-0 ${index === 0 ? "z-10 opacity-100" : "z-0 opacity-0"}`}
+        >
+          <Image
+            src={pair.after}
+            alt={`After ${index + 1}`}
+            class="after-img absolute inset-0 w-full h-full object-contain"
+          />
+          <div class="before-wrapper absolute inset-0 w-1/2 overflow-hidden z-10 border-r border-white/50">
+            <Image
+              src={pair.before}
+              alt={`Before ${index + 1}`}
+              class="before-img absolute inset-0 object-contain"
+            />
+          </div>
+        </div>
+      ))
+    }
 
     <div
       id="slider-handle"
       class="absolute top-0 bottom-0 left-1/2 w-[2px] bg-black z-30 flex items-center justify-center -translate-x-1/2 pointer-events-none"
     >
       <div
-        class="w-12 h-12 px-4 lg:w-16 lg:h-16 border border-white/50 backdrop-blur-md rounded-full lg:px-4 flex items-center justify-center bg-black/20"
+        class="w-12 h-12 px-4 lg:w-16 lg:h-16 border border-white/50 backdrop-blur-md rounded-full flex items-center justify-center bg-black/20"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -81,8 +84,9 @@ import after2 from "../assets/after2.png";
           stroke-width="1.5"
           stroke-linecap="round"
           stroke-linejoin="round"
-          ><path d="m18 8 4 4-4 4M6 8l-4 4 4 4"></path></svg
         >
+          <path d="m18 8 4 4-4 4M6 8l-4 4 4 4"></path>
+        </svg>
       </div>
     </div>
   </div>
@@ -90,8 +94,8 @@ import after2 from "../assets/after2.png";
   <h3
     class="text-center text-xl lg:text-3xl lg:ml-12 leading-loose lg:text-left w-[90%] flex-[0.7] font-light text-gray-400"
   >
-    Aged Leather Surfaces And Outdated Finishes That No Longer Reflect The
-    Standard Of Contemporary Luxury.
+    We replace outdated interiors and damaged factory leather with modern,
+    bespoke designs crafted exclusively for the Holder.
   </h3>
 </section>
 
@@ -103,31 +107,25 @@ import after2 from "../assets/after2.png";
 
   const container = document.getElementById("comparison-container");
   const handle = document.getElementById("slider-handle");
-  const section = document.getElementById("section-trigger");
+  const section = document.getElementById("before-after");
   const wrappers = document.querySelectorAll(".before-wrapper");
+  const pairEls = document.querySelectorAll(".pair-group");
   const labels = {
     before: document.getElementById("label-before"),
     after: document.getElementById("label-after"),
   };
 
-  const pairEls = [
-    document.getElementById("pair-1"),
-    document.getElementById("pair-2"),
-  ];
   let currentIndex = 0;
   let isPaused = false;
   let currentPercent = 50;
 
   if (container && handle && section) {
+    // Sincronizar tamaños de imagen
     const syncImages = () => {
       const { offsetWidth, offsetHeight } = container;
       const componentImages = container.querySelectorAll("img");
-
       componentImages.forEach((img) => {
-        gsap.set(img, {
-          width: offsetWidth,
-          height: offsetHeight,
-        });
+        gsap.set(img, { width: offsetWidth, height: offsetHeight });
       });
     };
 
@@ -172,8 +170,8 @@ import after2 from "../assets/after2.png";
       }
     };
 
-    // Intervalo de cambio
-    let interval: number;
+    // Observer para el auto-play
+    let interval: any;
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
@@ -188,7 +186,7 @@ import after2 from "../assets/after2.png";
 
     observer.observe(section);
 
-    // Draggable
+    // Draggable logic
     const dragProxy = document.createElement("div");
     Draggable.create(dragProxy, {
       trigger: container,
@@ -209,7 +207,6 @@ import after2 from "../assets/after2.png";
       },
     });
 
-    // Animación manual para los labels Before/After
     const animateTo = (target: number) => {
       isPaused = true;
       const state = { val: currentPercent };

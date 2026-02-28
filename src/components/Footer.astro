@@ -3,9 +3,13 @@ import PrimaryButton from "./helpers/PrimaryButton.astro";
 import Logo_Large from "../assets/logo_large.svg";
 ---
 
-<section id="footer" class="relative h-screen w-full bg-brown overflow-visible">
+<section
+  id="footer"
+  data-nav-color="text-brown"
+  class="relative h-screen w-full bg-brown overflow-visible"
+>
   <div
-    class="absolute-container absolute bottom-0 left-0 top-[-100vh] w-full pointer-events-none"
+    class="absolute-container absolute bottom-0 left-0 top-[-140vh] lg:top-[-100vh] w-full pointer-events-none"
   >
     <div
       id="footer-curtain"
@@ -15,7 +19,7 @@ import Logo_Large from "../assets/logo_large.svg";
   </div>
 
   <div
-    class="absolute-container absolute bottom-0 left-0 top-[-100vh] w-full pt-36 px-6 lg:px-24 content-end pointer-events-none"
+    class="absolute-container absolute bottom-0 left-0 top-[-140vh] lg:top-[-100vh] w-full pt-36 px-6 lg:px-24 content-end pointer-events-none"
   >
     <div
       class="sticky bottom-0 h-fit lg:h-fit flex flex-col gap-6 lg:gap-16 items-center justify-between"
@@ -38,24 +42,36 @@ import Logo_Large from "../assets/logo_large.svg";
       </div>
 
       <div
-        class="footer-content-container flex flex-col lg:flex-row gap-8 w-full justify-center lg:justify-between lg:order-1 text-brown"
+        class="footer-content-container flex flex-col lg:flex-row gap-8 w-full justify-center lg:justify-between lg:order-1 text-brown pointer-events-auto"
       >
         <div>
           <h3 class="text-xl lg:text-4xl font-bold lg:leading-normal">
             Address
           </h3>
-          <h4 class="text-lg lg:text-3xl lg:leading-normal">
-            12255 SW 128th St Suite 402,<br class="hidden lg:block" /> Miami, Florida
-            33186
-          </h4>
+          <a
+            href="https://www.google.com/maps/place/12255+SW+128th+St+Suite+402,+Miami,+FL+33186/@25.6517178,-80.3980481,17z"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover-underline-animation"
+          >
+            <h4 class="text-lg lg:text-3xl lg:leading-normal inline-block">
+              12255 SW 128th St Suite 402,<br class="hidden lg:block" /> Miami, Florida
+              33186
+            </h4>
+          </a>
         </div>
         <div class="lg:text-right">
           <h3 class="text-xl lg:text-4xl font-bold lg:leading-normal">
             Email Us
           </h3>
-          <h4 class="text-lg lg:text-3xl lg:leading-normal">
-            info@mutatidesign.com
-          </h4>
+          <a
+            href="mailto:info@mutatidesign.com"
+            class="hover-underline-animation"
+          >
+            <h4 class="text-lg lg:text-3xl lg:leading-normal inline-block">
+              info@mutatidesign.com
+            </h4>
+          </a>
         </div>
       </div>
 
@@ -86,7 +102,7 @@ import Logo_Large from "../assets/logo_large.svg";
 
         <Logo_Large
           id="footer-logo-ref"
-          class="md:footer-content-container w-full text-brown md:invisible pb-8 md:pb-0 md:py-16 pointer-events-none"
+          class="footer-content-container lg:opacity-0! w-full text-brown md:invisible pb-8 md:pb-0 md:py-16 pointer-events-none"
         />
       </div>
     </div>
@@ -106,6 +122,8 @@ import Logo_Large from "../assets/logo_large.svg";
     const navLogo = document.getElementById("nav-logo-center");
     const logoRef = document.getElementById("footer-logo-ref");
     const absoluteContainer = document.querySelectorAll("absolute-container");
+    const faqSection = document.getElementById("FAQ");
+    let originalNavColor: string | null = null;
 
     if (!curtain || !footer || !navLogo || !logoRef) return;
 
@@ -124,11 +142,41 @@ import Logo_Large from "../assets/logo_large.svg";
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: footer,
-        start: "-=50% top",
-        end: "top top",
+        start: "-=80% top",
+        end: "-=40% top",
         // markers: true,
         scrub: 3,
         invalidateOnRefresh: true,
+        onEnter: () => {
+          if (faqSection) {
+            // Guardamos el color original
+            originalNavColor = faqSection.getAttribute("data-nav-color");
+            faqSection.setAttribute("data-nav-color", "text-brown");
+
+            // Forzamos la actualización manual en caso de que el IntersectionObserver del Nav no haya disparado
+            const nav = document.getElementById("main-nav");
+            if (nav) {
+              nav.className.split(" ").forEach((cls) => {
+                if (cls.startsWith("text-")) nav.classList.remove(cls);
+              });
+              nav.classList.add("text-brown");
+            }
+          }
+        },
+        onLeaveBack: () => {
+          if (faqSection && originalNavColor) {
+            // Revertimos al color original
+            faqSection.setAttribute("data-nav-color", originalNavColor);
+
+            const nav = document.getElementById("main-nav");
+            if (nav) {
+              nav.className.split(" ").forEach((cls) => {
+                if (cls.startsWith("text-")) nav.classList.remove(cls);
+              });
+              nav.classList.add(originalNavColor);
+            }
+          }
+        },
       },
     });
 
@@ -144,13 +192,25 @@ import Logo_Large from "../assets/logo_large.svg";
     tl.to(
       navLogo,
       {
-        y: "80vh",
-        width: "100%",
+        y: () => {
+          const navRect = navLogo.getBoundingClientRect();
+          const refRect = logoRef.getBoundingClientRect();
+          // Distancia necesaria = Posición destino - Posición actual
+          return refRect.top - navRect.top + refRect.height;
+        },
+        x: () => {
+          const navRect = navLogo.getBoundingClientRect();
+          const refRect = logoRef.getBoundingClientRect();
+          // Corrección horizontal para asegurar encuadre perfecto al centro
+          return (
+            refRect.left +
+            refRect.width / 2 -
+            (navRect.left + navRect.width / 2)
+          );
+        },
+        width: () => refRect.width,
+        paddingBottom: "7.5%",
         ease: "power3.inOut",
-        delay: 0.03,
-        paddingLeft: "6rem",
-        paddingRight: "6rem",
-        paddingBottom: "12rem",
       },
       0,
     );
@@ -162,9 +222,10 @@ import Logo_Large from "../assets/logo_large.svg";
         ease: "power3.inOut",
         scrollTrigger: {
           trigger: footer,
-          scrub: 1,
-          start: "20% 55%",
-          end: "90% 90%",
+          scrub: 3,
+          start: "-=30% 35%",
+          end: "40% 70%",
+          // markers: true,
           toggleActions: "play none none reverse",
         },
       },
@@ -179,21 +240,6 @@ import Logo_Large from "../assets/logo_large.svg";
       0.25,
     );
 
-    // --- TRIGGER 2: ANIMACIÓN DE REVELACIÓN (A mitad del footer) ---
-    // gsap.to(contentContainer, {
-    //   yPercent: 0,
-    //   autoAlpha: 1,
-    //   ease: "power3.inOut",
-    //   scrollTrigger: {
-    //     trigger: footer,
-    //     scrub: 1,
-    //     start: "50% 80%",
-    //     markers: true,
-    //     end: "bottom bottom",
-    //     toggleActions: "play none none reverse",
-    //   },
-    // });
-
     ScrollTrigger.refresh();
   }
 
@@ -204,5 +250,29 @@ import Logo_Large from "../assets/logo_large.svg";
 <style>
   #footer-curtain {
     transform-origin: top center;
+  }
+
+  .hover-underline-animation {
+    display: inline-block;
+    position: relative;
+    text-decoration: none; /* Asegura que no haya subrayado predeterminado */
+  }
+
+  .hover-underline-animation h4::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1px; /* Grosor del subrayado */
+    bottom: 0;
+    left: 0;
+    background-color: currentColor; /* Usa el color del texto actual (brown) */
+    transform-origin: bottom left;
+    transition: transform 0.3s ease-out; /* Velocidad de la animación */
+  }
+
+  .hover-underline-animation:hover h4::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
   }
 </style>

@@ -2,27 +2,44 @@
 import { Image } from "astro:assets";
 import TheHolderImage from "../assets/the_holder.jpg";
 import Layout_Interior from "../layouts/Layout_Interior.astro";
+// Importamos el componente (Ajusta la ruta según la estructura de tu proyecto)
+import RevealType from "../components/helpers/RevealType.astro";
+import BackArrow from "../assets/back_arrow.svg";
 ---
 
 <Layout_Interior>
   <section
-    class={`min-h-screen lg:pb-20  w-full px-6 pb-6 lg:px-24 flex flex-col items-start justify-center lg:justify-start pt-28 lg:pt-36 gap-8 lg:gap-12 bg-brown text-bone`}
+    id="the-holder"
+    data-nav-color="text-light"
+    class={`min-h-screen lg:pb-20 w-full px-6 pb-6 lg:px-24 flex flex-col items-start justify-center lg:justify-start pt-28 lg:pt-44 gap-8 lg:gap-12 bg-brown text-bone`}
   >
-    <h2
-      class="text-[clamp(2.5rem,12vw,5rem)] lg:text-[clamp(5.5rem,80vw,10rem)] leading-14 lg:leading-none font-bold"
+    <a
+      class="flex items-center gap-2 lg:gap-4 hover:scale-110 cursor-pointer hover:text-bone/80 transition-all duration-300"
+      href="/#the_holder"
     >
-      The Holder
-    </h2>
-    <div class={`h-1 w-full bg-light`}></div>
+      <BackArrow class="lg:w-16 lg:h-16 w-8 h-8" />
+      <span class="text-2xl md:text-4xl lg:text-6xl font-light"> Back </span>
+    </a>
+    <RevealType
+      phrase="The Holder"
+      class="text-[clamp(2.5rem,12vw,5rem)] lg:text-[clamp(5.5rem,80vw,10rem)] leading-14 lg:leading-none font-bold"
+      delay={0.2}
+    />
+
+    <div class={`mutati-line h-1 w-full bg-light origin-left`}></div>
+
     <div
       class="flex flex-col gap-8 items-start justify-between lg:flex-row lg:gap-32 lg:items-end lg:w-full h-full"
     >
-      <Image
-        src={TheHolderImage}
-        alt="Team from Mutati"
-        class="h-full w-full flex-1 object-cover"
-      />
-      <p class="text-xl lg:text-4xl leading-normal flex-1">
+      <div class="mutati-image-wrapper flex-1 w-full h-full overflow-hidden">
+        <Image
+          src={TheHolderImage}
+          alt="Team from Mutati"
+          class="mutati-image h-full w-full object-cover origin-bottom"
+        />
+      </div>
+
+      <p class="mutati-text text-xl lg:text-4xl leading-normal flex-1">
         "Quite honestly, the level of craftsmanship is out of this world. They
         transformed my Global 6000 cabin into a space that feels more like a
         boutique hotel than an aircraft. The choice of leathers and the
@@ -30,8 +47,80 @@ import Layout_Interior from "../layouts/Layout_Interior.astro";
         ability to integrate cutting-edge technology without compromising the
         classic aesthetic I was looking for. Now, every hour in the air is a
         true pleasure."<br />
-        <b class="text-light">— Julián S., Private Owner.</b>
+        <b class="text-light block mt-4">— Julián S., Private Owner.</b>
       </p>
     </div>
   </section>
 </Layout_Interior>
+
+<style>
+  /* Animaciones CSS restantes para los demás elementos */
+
+  /* Estados iniciales */
+  .mutati-text {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .mutati-line {
+    transform: scaleX(0);
+  }
+
+  /* Retrasos escalonados (ajustados para sincronizar con el GSAP de RevealType) */
+  .mutati-line {
+    animation: expandLine 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+  }
+
+  .mutati-image-wrapper {
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+    animation: revealMask 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
+  }
+
+  .mutati-image {
+    transform: scale(1.15);
+    animation: scaleDown 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
+  }
+
+  .mutati-text {
+    animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
+  }
+
+  /* Keyframes */
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes expandLine {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes revealMask {
+    from {
+      clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+    }
+    to {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+  }
+
+  @keyframes scaleDown {
+    from {
+      transform: scale(1.15);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+</style>

@@ -1,23 +1,30 @@
 [
     {
+        "id": "+10_years_of_experience",
         "title": "+10 Years Of Experience",
+        "navColor": "text-light",
         "subtitle": "Proven Mastery",
         "text": "With more than 10 years in the industry, our extensive experience guarantees exceptional results for every project."
     },
     {
+        "id": "the_holder",
         "title": "The Holder",
+        "navColor": "text-brown",
         "subtitle": "Brand Custody",
         "text": "At Mutati, Clients Are Not Consumers, But Holders Of A Privileged Position. Each Project Secures A Permanent Place In The Brand's History."
     },
     {
+        "id": "the_artifact",
         "title": "The Artifact",
+        "navColor": "text-light",
         "subtitle": "Physical Delivery",
         "text": "The Digital Experience Materializes Into A Custom-Designed Box. This Physical Artifact Contains The Project Plate, Material Samples, And The Final Project Book."
     },
     {
+        "id": "two_annual_commissions",
         "title": "Two Annual Commissions",
+        "navColor": "text-red",
         "subtitle": "Strategic Scarcity",
         "text": "Mutati Deliberately Limits Its Operations To Two Aircraft Projects Per Year. This Is Not A Lack Of Capacity, But A Strategic Decision To Ensure An Absolute Obsession With Detail."
     }
-    
 ]

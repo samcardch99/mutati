@@ -1,7 +1,8 @@
 ---
-const { text, className } = Astro.props;
+const { text, className, href } = Astro.props;
 ---
 
-<a class={`${className || ""} rounded-full bg-brown px-6 py-2  text-light `}
-  >{text}</a
+<a
+  class={`${className || ""} rounded-full bg-brown px-8 py-4  text-light `}
+  href={href}>{text}</a
 >

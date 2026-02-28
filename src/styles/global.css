@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 html {
-  @apply lg:text-[1rem] xl:text-[0.71rem] 2xl-prev:text-[0.71rem] 2xl:text-[0.5rem] 2xl-custom:text-[1.1rem] 3xl-custom:text-[1.4rem];
+  @apply lg:text-[0.7rem] xl:text-[0.51rem] 2xl-prev:text-[0.71rem] 2xl:text-[0.5rem] 2xl-custom:text-[0.9rem] 3xl-custom:text-[1.4rem];
 }
 
 @font-face {
@@ -153,12 +153,12 @@ html {
 
   /* Corregido: Usamos --breakpoint-{nombre} */
   --breakpoint-thin-screen: 380px;
-  --breakpoint-md-vertical: 768px;
+  --breakpoint-md-vertical: 770px;
   --breakpoint-md-custom: 637px;
   --breakpoint-md-custom-lg: 1023px;
   --breakpoint-md-860px: 860px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
+  --breakpoint-md: 770px;
+  --breakpoint-lg: 1026px;
   /* <--- Ahora Tailwind generará la variante 'lg' */
   --breakpoint-xl: 1280px;
   /* <--- Ahora Tailwind generará la variante 'xl' */

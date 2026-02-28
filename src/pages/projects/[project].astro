@@ -30,18 +30,19 @@ const portadaPath = `../../assets/Projects/${project}/Portada/1.jpg`;
 <LayoutInterior>
     <section
         id="projects-interior"
+        data-nav-color="text-light"
         class="relative w-full min-h-screen bg-black text-light pt-32 lg:pt-52 pb-8 lg:pb-20 px-6 lg:px-24 flex flex-col gap-16"
     >
         <div class="flex flex-col items-start justify-center gap-16">
-            <button
-                class="flex items-center gap-2 lg:gap-4 hover:scale-110 hover:text-bone/80 transition-all duration-300"
-                onclick="history.back()"
+            <a
+                class="flex items-center gap-2 lg:gap-4 hover:scale-110 cursor-pointer hover:text-bone/80 transition-all duration-300"
+                href="/#projects"
             >
                 <BackArrow class="lg:w-16 lg:h-16 w-8 h-8" />
                 <span class="text-2xl md:text-4xl lg:text-6xl font-light">
                     Back
                 </span>
-            </button>
+            </a>
         </div>
 
         <div
@@ -101,7 +102,7 @@ const portadaPath = `../../assets/Projects/${project}/Portada/1.jpg`;
                                     width={1280}
                                     src={allImages[imageKey]()}
                                     alt={`${data.title} detail ${index}`}
-                                    class="w-full h-full object-cover md:grayscale md:group-hover:grayscale-0 transition-all duration-700 md:group-hover:scale-110"
+                                    class="w-full h-full object-cover md:group-hover:grayscale-0 transition-all duration-700 md:group-hover:scale-110"
                                 />
                             </div>
                         );
