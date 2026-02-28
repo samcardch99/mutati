@@ -1,0 +1,1 @@
+import{S as a,A as e}from"./swiper.D3uAdJ2c.js";import{N as o}from"./navigation.BQV4TQsI.js";new a(".swiper",{modules:[o,e],loop:!0,autoplay:{delay:3500,disableOnInteraction:!1},navigation:{nextEl:".next-nav",prevEl:".prev-nav"}});

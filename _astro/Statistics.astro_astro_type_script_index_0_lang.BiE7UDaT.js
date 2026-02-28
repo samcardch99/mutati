@@ -1,1 +1,0 @@
-import{g as i}from"./index.CB87Sc6I.js";import{S as t}from"./ScrollTrigger.Cv03IO65.js";i.registerPlugin(t);const e=document.querySelectorAll(".stat-card");e.forEach((r,s)=>{s===e.length-1?t.create({trigger:r,start:"top top",end:"+=30%",pin:!0,pinSpacing:!0,scrub:!0}):t.create({trigger:r,start:"top top",pin:!0,pinSpacing:!1,scrub:!0})});
