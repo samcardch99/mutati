@@ -11,20 +11,20 @@
         "title": "The Holder",
         "navColor": "text-brown",
         "subtitle": "Brand Custody",
-        "text": "At Mutati, Clients Are Not Consumers, But Holders Of A Privileged Position. Each Project Secures A Permanent Place In The Brand's History."
+        "text": "At Mutati, clients are not consumers, but holders of a privileged position. Each project secures a permanent place in the brand's history."
     },
     {
         "id": "the_artifact",
         "title": "The Artifact",
         "navColor": "text-light",
         "subtitle": "Physical Delivery",
-        "text": "The Digital Experience Materializes Into A Custom-Designed Box. This Physical Artifact Contains The Project Plate, Material Samples, And The Final Project Book."
+        "text": "The digital experience materializes into a custom-designed box. This physical artifact contains the project plate, material samples, and the final project book."
     },
     {
         "id": "two_annual_commissions",
         "title": "Two Annual Commissions",
         "navColor": "text-red",
         "subtitle": "Strategic Scarcity",
-        "text": "Mutati Deliberately Limits Its Operations To Two Aircraft Projects Per Year. This Is Not A Lack Of Capacity, But A Strategic Decision To Ensure An Absolute Obsession With Detail."
+        "text": "Mutati deliberately limits its operations to two aircraft projects per year. This is not a lack of capacity, but a strategic decision to ensure an absolute obsession with detail."
     }
 ]
