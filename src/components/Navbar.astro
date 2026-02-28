@@ -23,7 +23,7 @@ import BurgerMenu from "../assets/burger_menu.svg";
         viewBox="0 0 56 16"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        class="w-12 h-auto"
+        class="w-12 h-auto overflow-visible"
       >
         <rect class="line-1" width="56" height="3" rx="1.5" fill="currentColor"
         ></rect>
@@ -66,7 +66,7 @@ import BurgerMenu from "../assets/burger_menu.svg";
           viewBox="0 0 56 16"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          class="w-16 h-auto"
+          class="w-16 h-auto overflow-visible"
         >
           <rect
             class="line-1"
@@ -139,8 +139,14 @@ import BurgerMenu from "../assets/burger_menu.svg";
   .line-2 {
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     transform-origin: center;
+    /* Esto asegura que la rotación sea sobre el centro real de cada línea */
+    transform-box: fill-box;
   }
 
+  /* Cálculo: El alto es 16. El centro es 8. 
+     La línea 1 está en y=0 (centro en 1.5). Para llegar a 8, baja 6.5px.
+     La línea 2 está en y=13 (centro en 14.5). Para llegar a 8, sube 6.5px.
+  */
   .menu-toggle.is-active .line-1 {
     transform: translateY(6.5px) rotate(45deg);
   }
@@ -180,7 +186,6 @@ import BurgerMenu from "../assets/burger_menu.svg";
 <script>
   import { gsap } from "gsap";
 
-  // Declaración global para resolver el error de Window
   declare global {
     interface Window {
       restoreNavColor?: () => void;
@@ -201,7 +206,6 @@ import BurgerMenu from "../assets/burger_menu.svg";
   function setupNavColor() {
     const nav = document.getElementById("main-nav");
     const sections = document.querySelectorAll("section[id]");
-
     if (!nav) return;
 
     const colorMap: Record<string, string> = {
@@ -222,13 +226,11 @@ import BurgerMenu from "../assets/burger_menu.svg";
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           lastIntersectingSection = entry.target;
-
           if (!isMenuOpen) {
             const targetColor =
               entry.target.getAttribute("data-nav-color") ||
               colorMap[entry.target.id] ||
               "text-brown";
-
             applyNavColor(nav, targetColor);
           }
         }
@@ -239,13 +241,6 @@ import BurgerMenu from "../assets/burger_menu.svg";
 
     window.restoreNavColor = () => {
       if (lastIntersectingSection) {
-        const colorMap: Record<string, string> = {
-          hero: "text-brown",
-          "about-interior-1": "text-light",
-          "about-interior-2": "text-brown",
-          "about-interior-3": "text-brown",
-          "contact-section": "text-brown",
-        };
         const targetColor =
           lastIntersectingSection.getAttribute("data-nav-color") ||
           colorMap[lastIntersectingSection.id] ||
@@ -284,9 +279,7 @@ import BurgerMenu from "../assets/burger_menu.svg";
     toggles.forEach((toggle) => {
       toggle.addEventListener("click", () => {
         isMenuOpen = !isMenuOpen;
-
         toggles.forEach((t) => t.classList.toggle("is-active"));
-
         if (isMenuOpen) {
           applyNavColor(nav, "text-brown");
           tl.play();
