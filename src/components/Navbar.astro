@@ -52,10 +52,10 @@ import BurgerMenu from "../assets/burger_menu.svg";
     <div class="flex items-center lg:gap-12 lg:order-2">
       <a
         href="/contact"
-        class="bg-current block px-6 py-2 lg:px-10 lg:py-3 rounded-full text-lg lg:text-3xl font-medium"
+        class="bg-current block px-6 py-2 lg:px-12 lg:py-4 rounded-full text-xl lg:text-4xl font-medium"
       >
         <span
-          class="text-light group-[.text-light]:text-red transition-colors duration-500"
+          class="text-light group-[.text-light]:text-black transition-colors duration-500"
           >APPLY</span
         >
       </a>
@@ -70,14 +70,14 @@ import BurgerMenu from "../assets/burger_menu.svg";
         >
           <rect
             class="line-1"
-            width="56"
+            width="66"
             height="3"
             rx="1.5"
             fill="currentColor"></rect>
           <rect
             class="line-2"
             y="13"
-            width="56"
+            width="66"
             height="3"
             rx="1.5"
             fill="currentColor"></rect>
@@ -259,7 +259,7 @@ import BurgerMenu from "../assets/burger_menu.svg";
     const overlay = document.querySelector("#menu-overlay") as HTMLElement;
     const links = document.querySelectorAll(".menu-link");
     const footerLogo = document.querySelector(".menu-footer-logo");
-
+    gsap.set(navLogo, { visibility: "visible" });
     if (toggles.length === 0 || !overlay || !nav) return;
 
     const tl = gsap.timeline({
