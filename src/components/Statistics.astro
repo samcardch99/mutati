@@ -37,7 +37,7 @@ const ARTIFACT = "The Artifact";
       const buttonTextClass = colors[index].background.replace("bg-", "text-");
 
       return (
-        <section
+        <div
           data-nav-color={stat.navColor || colors[index].text}
           data-apply-color={colors[index].background.replace("bg-", "text-")}
           id={stat.id}
@@ -94,7 +94,7 @@ const ARTIFACT = "The Artifact";
               )}
             </div>
           </div>
-        </section>
+        </div>
       );
     })
   }
