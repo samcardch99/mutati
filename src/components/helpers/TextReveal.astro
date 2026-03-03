@@ -3,19 +3,31 @@ interface Props {
     phrase: string;
     class?: string;
     mode?: "lines" | "words" | "chars";
-    delay?: number; // Agregamos la prop de delay
+    delay?: number;
 }
 
 const { phrase, class: className, mode = "lines", delay = 0 } = Astro.props;
 ---
 
-<div class={className} data-split-mode={mode} data-delay={delay}>
+<div
+    class={`gsap-text-container ${className}`}
+    data-split-mode={mode}
+    data-delay={delay}
+>
     <span class="gsap-reveal-text">{phrase}</span>
 </div>
 
 <style>
     .gsap-reveal-text {
         visibility: hidden;
+        display: block; /* Forzamos bloque para que el cálculo de líneas sea preciso */
+        width: 100%;
+    }
+
+    /* Evitamos que las palabras se rompan a mitad de camino */
+    :global(.word-parent) {
+        display: inline-block;
+        white-space: nowrap;
     }
 </style>
 
@@ -30,7 +42,6 @@ const { phrase, class: className, mode = "lines", delay = 0 } = Astro.props;
 
     containers.forEach((container) => {
         const mode = container.getAttribute("data-split-mode") || "lines";
-        // Recuperamos el delay del dataset
         const startDelay = parseFloat(
             (container as HTMLElement).dataset.delay || "0",
         );
@@ -38,58 +49,58 @@ const { phrase, class: className, mode = "lines", delay = 0 } = Astro.props;
 
         if (!el) return;
 
+        // Revelamos antes de hacer el split para que los cálculos de posición sean correctos
         gsap.set(el, { autoAlpha: 1 });
 
         const split = new SplitText(el, {
             type: mode as any,
-            linesClass: mode === "lines" ? "line-parent" : "",
-            wordsClass: mode === "words" ? "word-parent" : "",
-            charsClass: mode === "chars" ? "char-parent" : "",
+            // Agregamos una clase base de GSAP que ayuda a mantener el estilo
+            linesClass: "line-child",
+            wordsClass: "word-child",
+            charsClass: "char-child",
         });
 
         let animationProps: gsap.TweenVars = {};
         let target: any[] = [];
 
         if (mode === "lines") {
+            // "Wrapping" manual para efecto de máscara
             split.lines.forEach((line) => {
                 const wrapper = document.createElement("div");
+                wrapper.className = "line-parent";
                 wrapper.style.overflow = "hidden";
                 line.parentNode?.insertBefore(wrapper, line);
                 wrapper.appendChild(line);
             });
             target = split.lines;
-            animationProps = {
-                yPercent: 100,
-                duration: 0.5, // Aumentado para mayor elegancia
-                stagger: 0.2,
-            };
+            animationProps = { yPercent: 100, stagger: 0.2 };
         } else if (mode === "words") {
             target = split.words;
-            animationProps = {
-                opacity: 0,
-                y: 20,
-                duration: 0.8,
-                stagger: 0.05,
-            };
+            animationProps = { opacity: 0, y: 20, stagger: 0.05 };
         } else if (mode === "chars") {
             target = split.chars;
-            animationProps = {
-                opacity: 0,
-                y: 10,
-                duration: 0.5,
-                stagger: 0.02,
-            };
+            animationProps = { opacity: 0, y: 10, stagger: 0.02 };
         }
 
         gsap.from(target, {
             ...animationProps,
-            delay: startDelay, // Aplicamos el delay de la escena
-            ease: "power2.out", // Ease seco sin resorte
+            delay: startDelay,
+            duration: mode === "words" ? 0.8 : 0.5,
+            ease: "power2.out",
             scrollTrigger: {
-                trigger: el,
+                trigger: container, // Usamos el contenedor como trigger para mayor estabilidad
                 start: "top 95%",
                 toggleActions: "play none none none",
             },
+        });
+
+        // RE-CÁLCULO (Opcional pero recomendado)
+        // Si la ventana cambia de tamaño, el split de líneas puede romperse
+        window.addEventListener("resize", () => {
+            if (mode === "lines") {
+                split.revert();
+                // Aquí podrías volver a ejecutar la lógica si es crítico
+            }
         });
     });
 </script>
