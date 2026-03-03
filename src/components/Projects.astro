@@ -175,11 +175,25 @@ const allPortadas = import.meta.glob<ImageModule>(
 <style>
   :global(.swiper-pagination-bullet) {
     background-color: #e8e3e1 !important;
-    width: 10px !important;
-    height: 10px !important;
-    margin: 0 8px !important;
+    width: 1rem !important;
+    height: 1rem !important;
+    margin: 0 0.6rem !important;
     opacity: 0.5;
     transition: all 0.3s ease;
+  }
+  @media (max-width: 768px) {
+    :global(.swiper-pagination-bullet) {
+      width: 0.7rem !important;
+      height: 0.7rem !important;
+      margin: 0 0.4rem !important;
+    }
+  }
+  @media (max-width: 1024px) {
+    :global(.swiper-pagination-bullet) {
+      width: 0.8rem !important;
+      height: 0.8rem !important;
+      margin: 0 0.5rem !important;
+    }
   }
 
   :global(.swiper-pagination-bullet-active) {

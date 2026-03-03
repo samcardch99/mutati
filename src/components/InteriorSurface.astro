@@ -2,8 +2,8 @@
 import { Image } from "astro:assets";
 import InteriorSurfaceColor from "../assets/InteriorSurfaceColor.jpg";
 import InteriorSurfaceGray from "../assets/InteriorSurface.jpg";
-import InteriorSurfaceColorDesktop from "../assets/InteriorSurfaceColorDesktop.jpg";
-import InteriorSurfaceGrayDesktop from "../assets/InteriorSurfaceDesktop.jpg";
+import InteriorSurfaceColorDesktop from "../assets/InteriorSurfaceColorDesktop.jpeg";
+import InteriorSurfaceGrayDesktop from "../assets/InteriorSurfaceDesktop.jpeg";
 import TypeWriter from "./helpers/TypeWriter.astro";
 import TextReveal from "./helpers/TextReveal.astro";
 const slides = [
@@ -40,6 +40,9 @@ const slides = [
             <Image
               src={slide.desktop}
               alt={slide.alt}
+              width={1920}
+              height={1080}
+              quality={75}
               class="w-full h-full object-cover hidden lg:block"
             />
           </div>
@@ -84,7 +87,7 @@ const slides = [
       loop: true,
       allowTouchMove: false,
       autoplay: {
-        delay: 3500,
+        delay: 12500,
         disableOnInteraction: false,
         pauseOnMouseEnter: false,
       },

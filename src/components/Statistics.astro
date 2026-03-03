@@ -37,13 +37,16 @@ const ARTIFACT = "The Artifact";
       const buttonTextClass = colors[index].background.replace("bg-", "text-");
 
       return (
-        <div
+        <section
           data-nav-color={stat.navColor || colors[index].text}
+          data-apply-color={colors[index].background.replace("bg-", "text-")}
           id={stat.id}
+          style={{ zIndex: index + 1 }}
           class={`
             stat-card
+            shadow-stack-top
+            relative
             h-screen w-full
-            drop-shadow-lg drop-shadow-black
             px-6 md:px-16 lg:px-24 
             flex flex-col items-start justify-center lg:justify-start 
             pt-12 md:pt-32 lg:pt-56 
@@ -51,7 +54,7 @@ const ARTIFACT = "The Artifact";
             ${colors[index].text} ${colors[index].background}
           `}
         >
-          {/* Título Principal con Clamp Escalonado - Reducido en md para evitar huérfanas */}
+          {/* Título Principal */}
           <h2 class="text-[clamp(3rem,12vw,5.5rem)] md:text-[clamp(3.5rem,14vw,4.5rem)] lg:text-[clamp(8rem,18vw,12rem)] leading-[0.9] font-bold text-balance">
             <RevealType phrase={stat.title} delay={0.6} />
           </h2>
@@ -59,7 +62,6 @@ const ARTIFACT = "The Artifact";
           <div class="h-0.5 md:h-1 w-full bg-current opacity-40 lg:opacity-100" />
 
           <div class="flex flex-col gap-8 md:gap-14 items-start justify-center lg:flex-row lg:justify-between lg:w-full">
-            {/* Subtítulos dinámicos - Ligeramente más pequeños en tablet */}
             <div class="flex flex-col">
               <h3 class="text-3xl md:text-4xl lg:text-6xl font-bold tracking-tight">
                 <TypeWriter phrase={stat.subtitle.split(" ")[0]} delay={0} />
@@ -72,7 +74,6 @@ const ARTIFACT = "The Artifact";
               </h3>
             </div>
 
-            {/* Descripción y Botón - Texto descriptivo un poco más pequeño para legibilidad */}
             <div class="w-full md:max-w-xl lg:max-w-2/5 flex flex-col lg:items-end gap-8 md:gap-10">
               <p>
                 <TextReveal
@@ -93,7 +94,7 @@ const ARTIFACT = "The Artifact";
               )}
             </div>
           </div>
-        </div>
+        </section>
       );
     })
   }
@@ -165,7 +166,16 @@ const ARTIFACT = "The Artifact";
 <style>
   .stat-card {
     will-change: transform;
+    /* Evita posibles gaps de 1px entre tarjetas al hacer scroll */
+    margin-top: -1px;
   }
+
+  .shadow-stack-top {
+    /* Sombra superior: x=0, y=-15px, blur=40px, spread=-10px */
+    /* El valor negativo en Y proyecta la sombra hacia la tarjeta de ARRIBA */
+    box-shadow: 0 -15px 40px -10px rgba(0, 0, 0, 0.85);
+  }
+
   .stat-btn-wrapper {
     will-change: transform, opacity;
   }

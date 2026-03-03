@@ -36,12 +36,14 @@ import BurgerMenu from "../assets/burger_menu.svg";
           fill="currentColor"></rect>
       </svg>
     </button>
+
     <a
       href="/ "
-      class="no-style text-current absolute lg:order-1 lg:relative lg:left-auto lg:translate-x-0 left-1/2 -translate-x-1/2 w-12 h-12 lg:w-20 lg:h-20"
+      class="no-style text-current absolute lg:order-1 lg:relative lg:left-auto lg:translate-x-0 left-1/2 -translate-x-1/2 w-10 h-10 md:w-12 md:h-12 lg:w-20 lg:h-20"
     >
       <Logo />
     </a>
+
     <a
       id="nav-logo-center"
       class="no-style hidden lg:block absolute invisible left-1/2 -translate-x-1/2 lg:w-[120px] 2xl-custom:w-[256px] 3xl-custom:w-[320px] text-inherit self-center transition-opacity"
@@ -52,13 +54,15 @@ import BurgerMenu from "../assets/burger_menu.svg";
     <div class="flex items-center lg:gap-12 lg:order-2">
       <a
         href="/contact"
-        class="bg-current block px-6 py-2 lg:px-12 lg:py-4 rounded-full text-xl lg:text-4xl font-medium"
+        class="bg-current block px-6 py-2 lg:px-12 lg:py-4 rounded-full text-lg md:text-xl lg:text-4xl font-medium transition-colors duration-500"
       >
         <span
+          id="apply-btn-text"
           class="text-light group-[.text-light]:text-black transition-colors duration-500"
           >APPLY</span
         >
       </a>
+
       <button class="no-style menu-toggle cursor-pointer hidden lg:block z-110">
         <svg
           width="56"
@@ -96,29 +100,24 @@ import BurgerMenu from "../assets/burger_menu.svg";
       <a
         href="/"
         class="no-style menu-link text-3xl lg:text-5xl font-light tracking-tight text-brown/90"
+        >Home</a
       >
-        Home
-      </a>
       <a
         href="/about"
         class="no-style menu-link text-3xl lg:text-5xl font-light tracking-tight text-brown/90"
+        >About</a
       >
-        About
-      </a>
       <a
         href="/#projects"
         class="no-style menu-link text-3xl lg:text-5xl font-light tracking-tight text-brown/90"
+        >Projects</a
       >
-        Projects
-      </a>
       <a
         href="/contact"
         class="no-style menu-link text-3xl lg:text-5xl font-light tracking-tight text-brown/90"
+        >Contact</a
       >
-        Contact
-      </a>
     </div>
-
     <div class="w-full px-6 lg:px-24 overflow-hidden">
       <div class="w-full border-t-2 border-brown/20 pt-10 overflow-hidden">
         <div class="menu-footer-logo w-full translate-y-full">
@@ -134,36 +133,25 @@ import BurgerMenu from "../assets/burger_menu.svg";
     transform-origin: center center;
     overflow: visible;
   }
-
   .line-1,
   .line-2 {
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     transform-origin: center;
-    /* Esto asegura que la rotación sea sobre el centro real de cada línea */
     transform-box: fill-box;
   }
-
-  /* Cálculo: El alto es 16. El centro es 8. 
-     La línea 1 está en y=0 (centro en 1.5). Para llegar a 8, baja 6.5px.
-     La línea 2 está en y=13 (centro en 14.5). Para llegar a 8, sube 6.5px.
-  */
   .menu-toggle.is-active .line-1 {
     transform: translateY(6.5px) rotate(45deg);
   }
-
   .menu-toggle.is-active .line-2 {
     transform: translateY(-6.5px) rotate(-45deg);
   }
-
   #menu-overlay {
     transform: translateY(-100%);
   }
-
   .menu-link {
     position: relative;
     display: inline-block;
   }
-
   .menu-link::after {
     content: "";
     position: absolute;
@@ -176,7 +164,6 @@ import BurgerMenu from "../assets/burger_menu.svg";
     transform-origin: right;
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   }
-
   .menu-link:hover::after {
     transform: scaleX(1);
     transform-origin: left;
@@ -195,12 +182,39 @@ import BurgerMenu from "../assets/burger_menu.svg";
   let isMenuOpen: boolean = false;
   let lastIntersectingSection: Element | null = null;
 
-  function applyNavColor(nav: HTMLElement | null, colorClass: string) {
+  function applyNavColor(
+    nav: HTMLElement | null,
+    colorClass: string,
+    applyBtnColor?: string | null,
+  ) {
     if (!nav || !colorClass) return;
+
+    // Limpiar colores previos del nav
     nav.className.split(" ").forEach((cls) => {
       if (cls.startsWith("text-")) nav.classList.remove(cls);
     });
     nav.classList.add(colorClass);
+
+    // Lógica del botón APPLY
+    const applyText = document.getElementById("apply-btn-text");
+    if (applyText) {
+      // Limpiamos cualquier clase de color previa inyectada manualmente
+      applyText.className.split(" ").forEach((cls) => {
+        if (
+          cls.startsWith("text-") &&
+          cls !== "text-light" &&
+          cls !== "text-black"
+        ) {
+          applyText.classList.remove(cls);
+        }
+      });
+
+      if (applyBtnColor) {
+        // PRIORIDAD: Data attribute específico para Statistics
+        applyText.classList.add(applyBtnColor);
+      }
+      // Si no hay data-apply-color, la lógica de CSS (group) se encarga mediante text-light/text-black
+    }
   }
 
   function setupNavColor() {
@@ -216,38 +230,38 @@ import BurgerMenu from "../assets/burger_menu.svg";
       "contact-section": "text-brown",
     };
 
-    const observerOptions = {
-      root: null,
-      rootMargin: "-10% 0px -85% 0px",
-      threshold: 0,
-    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            lastIntersectingSection = entry.target;
+            if (!isMenuOpen) {
+              const targetNavColor =
+                entry.target.getAttribute("data-nav-color") ||
+                colorMap[entry.target.id] ||
+                "text-brown";
+              const targetApplyColor =
+                entry.target.getAttribute("data-apply-color");
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          lastIntersectingSection = entry.target;
-          if (!isMenuOpen) {
-            const targetColor =
-              entry.target.getAttribute("data-nav-color") ||
-              colorMap[entry.target.id] ||
-              "text-brown";
-            applyNavColor(nav, targetColor);
+              applyNavColor(nav, targetNavColor, targetApplyColor);
+            }
           }
-        }
-      });
-    }, observerOptions);
+        });
+      },
+      { rootMargin: "-10% 0px -85% 0px" },
+    );
 
     sections.forEach((section) => observer.observe(section));
 
     window.restoreNavColor = () => {
       if (lastIntersectingSection) {
-        const targetColor =
+        applyNavColor(
+          nav,
           lastIntersectingSection.getAttribute("data-nav-color") ||
-          colorMap[lastIntersectingSection.id] ||
-          "text-brown";
-        applyNavColor(nav, targetColor);
-      } else {
-        applyNavColor(nav, "text-brown");
+            colorMap[lastIntersectingSection.id] ||
+            "text-brown",
+          lastIntersectingSection.getAttribute("data-apply-color"),
+        );
       }
     };
   }
@@ -255,45 +269,34 @@ import BurgerMenu from "../assets/burger_menu.svg";
   function setupMenu() {
     const toggles = document.querySelectorAll(".menu-toggle");
     const nav = document.getElementById("main-nav");
-    const navLogo = document.querySelector("#nav-logo-center");
     const overlay = document.querySelector("#menu-overlay") as HTMLElement;
     const links = document.querySelectorAll(".menu-link");
-    const footerLogo = document.querySelector(".menu-footer-logo");
-    gsap.set(navLogo, { visibility: "visible" });
+
     if (toggles.length === 0 || !overlay || !nav) return;
 
     const tl = gsap.timeline({
       paused: true,
-      defaults: { ease: "expo.inOut" },
       onReverseComplete: () => {
         if (window.restoreNavColor) window.restoreNavColor();
       },
     });
 
-    tl.set(overlay, { display: "flex" })
-      .set(navLogo, { opacity: 0 })
-      .to(overlay, { y: "0%", duration: 1.2 }, 0)
-      .from(links, { y: 40, opacity: 0, stagger: 0.1, duration: 0.8 }, "-=0.6")
-      .to(footerLogo, { y: 0, duration: 1 }, "-=0.8");
+    tl.set(overlay, { display: "flex" }).to(overlay, {
+      y: "0%",
+      duration: 1.2,
+      ease: "expo.inOut",
+    });
 
     toggles.forEach((toggle) => {
       toggle.addEventListener("click", () => {
         isMenuOpen = !isMenuOpen;
         toggles.forEach((t) => t.classList.toggle("is-active"));
         if (isMenuOpen) {
-          applyNavColor(nav, "text-brown");
+          applyNavColor(nav, "text-brown", null); // En el menú siempre brown
           tl.play();
         } else {
           tl.reverse();
         }
-      });
-    });
-
-    links.forEach((link) => {
-      link.addEventListener("click", () => {
-        isMenuOpen = false;
-        toggles.forEach((t) => t.classList.remove("is-active"));
-        tl.reverse();
       });
     });
   }
@@ -303,7 +306,6 @@ import BurgerMenu from "../assets/burger_menu.svg";
     setupMenu();
     setupNavColor();
   });
-
   setupMenu();
   setupNavColor();
 </script>
