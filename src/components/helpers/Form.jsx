@@ -69,7 +69,8 @@ export default function HomeFooter({
         description: t("footer.form.success"),
       });
       reset();
-    } catch {
+    } catch (e) {
+      console.log(e);
       toast.error(t("footer.form.success.title.fail"), {
         description: t("footer.form.error"),
       });
