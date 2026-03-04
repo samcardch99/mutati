@@ -59,11 +59,13 @@ export default function HomeFooter({
   const onSubmit = async (data) => {
     if (!formRef.current) return;
     try {
+      console.log("Key:", import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY);
       await emailjs.sendForm(
         import.meta.env.PUBLIC_EMAILJS_SERVICE_ID,
         import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID,
         formRef.current,
         { publicKey: import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY }
+
       );
       toast.success(t("footer.form.success.title.success"), {
         description: t("footer.form.success"),
