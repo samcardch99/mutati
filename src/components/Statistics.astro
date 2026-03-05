@@ -6,10 +6,10 @@ import TypeWriter from "./helpers/TypeWriter.astro";
 import PrimaryButton from "./helpers/PrimaryButton.astro";
 
 const colors = [
-  { background: "bg-brown", text: "text-bone" }, // Index 0: The Holder
+  { background: "bg-brown", text: "text-bone" },
   { background: "bg-bone", text: "text-brown" },
   { background: "bg-red", text: "text-light" },
-  { background: "bg-light", text: "text-red" }, // Index 3: The Artifact
+  { background: "bg-light", text: "text-red" },
 ];
 
 const HOLDER = "The Holder";
@@ -32,7 +32,6 @@ const ARTIFACT = "The Artifact";
         : isArtifact
           ? "/the_artifact"
           : "#";
-
       const buttonBgClass = colors[index].text.replace("text-", "bg-");
       const buttonTextClass = colors[index].background.replace("bg-", "text-");
 
@@ -54,8 +53,20 @@ const ARTIFACT = "The Artifact";
             ${colors[index].text} ${colors[index].background}
           `}
         >
-          {/* Título Principal */}
-          <h2 class="text-[clamp(3rem,12vw,5.5rem)] md:text-[clamp(3.5rem,14vw,4.5rem)] lg:text-[clamp(8rem,18vw,12rem)] leading-[0.9] font-bold text-balance">
+          {/* Título Principal: Ajustado para estabilidad total */}
+          <h2
+            class="
+            text-[clamp(2.5rem,6vw,5.5rem)] 
+            md:text-[clamp(3.5rem,14vw,4.5rem)] 
+            lg:text-[clamp(8rem,18vw,12rem)] 
+            leading-none
+            font-bold 
+            text-left
+            w-full
+            block
+            overflow-visible
+          "
+          >
             <RevealType phrase={stat.title} delay={0.6} />
           </h2>
 
@@ -75,9 +86,9 @@ const ARTIFACT = "The Artifact";
             </div>
 
             <div class="w-full md:max-w-xl lg:max-w-2/5 flex flex-col lg:items-end gap-8 md:gap-10">
-              <p>
+              <p class="w-full">
                 <TextReveal
-                  class="text-lg md:text-xl lg:text-4xl leading-snug md:leading-normal text-balance lg:text-end"
+                  class="text-lg md:text-xl lg:text-4xl leading-snug md:leading-normal text-balance lg:text-end block"
                   phrase={stat.text}
                   delay={0.4}
                 />
@@ -112,10 +123,7 @@ const ARTIFACT = "The Artifact";
 
   const updateNavColor = (colorClass: string) => {
     if (!nav || !colorClass) return;
-
-    if (wrapper) {
-      wrapper.setAttribute("data-nav-color", colorClass);
-    }
+    if (wrapper) wrapper.setAttribute("data-nav-color", colorClass);
 
     if (!nav.classList.contains("menu-is-open")) {
       nav.className.split(" ").forEach((cls) => {
@@ -133,6 +141,7 @@ const ARTIFACT = "The Artifact";
 
     ScrollTrigger.create({
       trigger: card,
+      // Pinning estable
       start: "top top",
       end: isLast ? "+=30%" : "bottom top",
       pin: true,
@@ -166,17 +175,16 @@ const ARTIFACT = "The Artifact";
 <style>
   .stat-card {
     will-change: transform;
-    /* Evita posibles gaps de 1px entre tarjetas al hacer scroll */
-    margin-top: -1px;
+    /* Prevenir gaps de sub-píxeles */
+    outline: 1px solid transparent;
   }
 
   .shadow-stack-top {
-    /* Sombra superior: x=0, y=-15px, blur=40px, spread=-10px */
-    /* El valor negativo en Y proyecta la sombra hacia la tarjeta de ARRIBA */
     box-shadow: 0 -15px 40px -10px rgba(0, 0, 0, 0.85);
   }
 
-  .stat-btn-wrapper {
-    will-change: transform, opacity;
+  /* Aseguramos que el contenedor de estadísticas no tenga scroll horizontal inesperado */
+  #statistics-wrapper {
+    overflow-x: hidden;
   }
 </style>

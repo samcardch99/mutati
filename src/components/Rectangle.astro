@@ -1,0 +1,17 @@
+---
+// Rectangle.astro
+// A simple full-size rounded rectangle with a semi-transparent dark background.
+
+interface Props {
+  /** Additional Tailwind classes to merge with the base styles */
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div
+  class={`bg-[rgba(17,17,17,0.1)] rounded-[50px] w-full h-full ${className}`}
+>
+  <slot />
+</div>

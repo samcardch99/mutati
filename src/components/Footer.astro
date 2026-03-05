@@ -1,6 +1,7 @@
 ---
 import PrimaryButton from "./helpers/PrimaryButton.astro";
 import Logo_Large from "../assets/logo_large.svg";
+import Borsoga from "../assets/borsoga/logo.svg";
 ---
 
 <section
@@ -102,8 +103,31 @@ import Logo_Large from "../assets/logo_large.svg";
 
         <Logo_Large
           id="footer-logo-ref"
-          class="footer-content-container lg:opacity-0! w-full text-brown md:invisible pb-8 md:pb-0 md:py-16 pointer-events-none"
+          class="footer-content-container lg:opacity-0! w-full text-brown md:invisible pb-8 md:pb-0 pointer-events-none"
         />
+        <div
+          class="flex flex-col md:flex-row justify-between w-full items-center gap-4 z-500"
+        >
+          <a
+            href="/privacy-policy"
+            class="no-style text-brown text-base lg:text-2xl font-medium"
+            target="_blank"
+          >
+            Privacy Policy
+          </a>
+          <a
+            href="https://www.instagram.com/borsogastudio/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="no-style flex gap-2 lg:gap-4 items-start lg:items-center justify-center lg:justify-end"
+          >
+            <p class="text-sm lg:text-2xl text-brown font-medium">
+              This website was designed by
+            </p>
+
+            <Borsoga class="text-brown w-32 lg:w-64 pb-[0.4rem]" />
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -209,7 +233,7 @@ import Logo_Large from "../assets/logo_large.svg";
           );
         },
         width: () => refRect.width,
-        paddingBottom: "7.5%",
+        marginBottom: "4%",
         ease: "power3.inOut",
       },
       0,

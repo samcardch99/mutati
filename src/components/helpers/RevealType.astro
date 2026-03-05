@@ -7,16 +7,34 @@ interface Props {
 
 const { phrase, class: className, delay = 0 } = Astro.props;
 
-// Convertimos *texto* en <b>texto</b> antes de renderizar
+// Pre-procesamos el HTML
 const formattedPhrase = phrase.replace(
     /\*(.*?)\*/g,
     '<b class="font-bold">$1</b>',
 );
 ---
 
-<div class={`overflow-hidden ${className}`} data-delay={delay}>
-    <h2 class="gsap-hybrid-text invisible" set:html={formattedPhrase} />
-</div>
+<span
+    class={`reveal-type-container inline-block ${className}`}
+    data-delay={delay}
+>
+    <span class="gsap-hybrid-text invisible block" set:html={formattedPhrase} />
+</span>
+
+<style is:global>
+    /* Estilos críticos para evitar saltos de línea durante el split */
+    .reveal-type-container {
+        vertical-align: top;
+        /* Evita que el texto baile horizontalmente si las letras de glitch miden distinto */
+        font-kerning: none;
+    }
+
+    .gsap-hybrid-text div {
+        /* Asegura que las líneas creadas por GSAP no colapsen */
+        display: block;
+        position: relative;
+    }
+</style>
 
 <script>
     import { gsap } from "gsap";
@@ -26,10 +44,10 @@ const formattedPhrase = phrase.replace(
     gsap.registerPlugin(SplitText, ScrollTrigger);
 
     const glitchChars = ["h", "x", "t", "y"];
-    const TOTAL_DURATION = 1.2;
+    const TOTAL_DURATION = 1.0;
 
     const playGlitch = (charElement: HTMLElement, finalChar: string) => {
-        if (finalChar === " ") return;
+        if (finalChar === " " || !finalChar) return;
 
         const tl = gsap.timeline();
         tl.to(charElement, {
@@ -60,28 +78,29 @@ const formattedPhrase = phrase.replace(
         const container = el.parentElement as HTMLElement;
         const startDelay = parseFloat(container?.dataset.delay || "0");
 
-        // SplitText respetará las etiquetas <b> inyectadas
+        // Realizamos el split
         const split = new SplitText(el as HTMLElement, {
             type: "lines,chars",
-            linesClass: "overflow-hidden",
+            linesClass: "line-wrapper overflow-hidden",
         });
 
+        // Una vez hecho el split, hacemos visible el elemento
         gsap.set(el, { autoAlpha: 1 });
 
         const charCount = split.chars.length;
-        const individualDuration = 0.6;
+        const individualDuration = 0.5;
         const staggerTime =
             charCount > 1
                 ? (TOTAL_DURATION - individualDuration) / (charCount - 1)
                 : 0;
 
         gsap.from(split.chars, {
-            yPercent: 100,
+            yPercent: 105, // Un poco más de 100 para asegurar limpieza
             duration: individualDuration,
             delay: startDelay,
-            ease: "power3.out",
+            ease: "power4.out",
             stagger: {
-                each: staggerTime,
+                each: Math.max(staggerTime, 0.01),
                 onStart: function () {
                     const charElement = (this as any).targets()[0];
                     const finalChar = charElement.textContent;
@@ -90,7 +109,7 @@ const formattedPhrase = phrase.replace(
             },
             scrollTrigger: {
                 trigger: el,
-                start: "top 90%",
+                start: "top 95%",
                 toggleActions: "play none none none",
             },
         });

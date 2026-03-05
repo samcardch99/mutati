@@ -2,17 +2,18 @@
 import PrimaryButton from "../helpers/PrimaryButton.astro";
 import Logo_Large from "../../assets/logo_large.svg";
 import Form from "../helpers/Form.jsx";
+import Borsoga from "../../assets/borsoga/logo.svg";
 ---
 
 <section
     id="footer"
     data-nav-color="text-brown"
-    class="min-h-screen flex flex-col lg:gap-20 w-full bg-light pt-36 pb-20 px-6 lg:px-24 content-end"
+    class="min-h-screen flex flex-col lg:gap-20 w-full bg-light pt-36 pb-6 px-6 lg:px-24 content-end"
 >
     <Form client:visible language="en" />
 
     <div
-        class="h-full lg:h-[60vh] flex flex-col gap-16 items-center justify-between"
+        class="h-full lg:min-h-[60vh] flex flex-col gap-16 items-center justify-between"
     >
         <div
             class="flex flex-col lg:flex-row lg:justify-between items-stretch justify-center w-fit gap-12 lg:order-2 lg:hidden"
@@ -32,7 +33,7 @@ import Form from "../helpers/Form.jsx";
         </div>
 
         <div
-            class="flex-col lg:flex-row gap-8 w-full justify-center lg:justify-between hidden lg:flex lg:order-1"
+            class="flex-col lg:flex-row gap-8 w-full justify-center lg:justify-between hidden lg:flex lg:order-1 text-brown"
         >
             <div>
                 <h3 class="text-xl lg:text-4xl font-bold lg:leading-normal">
@@ -103,7 +104,7 @@ import Form from "../helpers/Form.jsx";
             </div>
 
             <div
-                class="flex-rowjustify-between items-stretch justify-between w-full gap-12 hidden lg:flex text-xl lg:text-4xl"
+                class="flex-row items-stretch justify-between w-full gap-12 hidden lg:flex text-xl lg:text-4xl"
             >
                 <PrimaryButton
                     className="lg:px-12 lg:py-4 w-fit text-center"
@@ -121,6 +122,29 @@ import Form from "../helpers/Form.jsx";
             <div class="h-1 lg:h-[0.4rem] w-full bg-brown"></div>
 
             <Logo_Large class="w-full text-brown" />
+            <div
+                class="flex flex-col md:flex-row justify-between w-full items-center gap-4"
+            >
+                <a
+                    href="/privacy-policy"
+                    class="no-style text-brown text-base lg:text-2xl font-medium"
+                    target="_blank"
+                >
+                    Privacy Policy
+                </a>
+                <a
+                    href="https://www.instagram.com/borsogastudio/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="no-style flex gap-2 lg:gap-4 items-start lg:items-center justify-center lg:justify-end"
+                >
+                    <p class="text-sm lg:text-2xl text-brown font-medium">
+                        This website was designed by
+                    </p>
+
+                    <Borsoga class="text-brown w-32 lg:w-64 pb-[0.4rem]" />
+                </a>
+            </div>
         </div>
     </div>
 </section>
