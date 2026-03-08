@@ -2,10 +2,11 @@
 import "../styles/global.css";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
+import FooterMobile from "../components/FooterMobile.astro";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" translate="no">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,7 +17,13 @@ import Footer from "../components/Footer.astro";
   <body>
     <Navbar />
     <slot />
-    <Footer />
+    <div class="footer-desktop-wrapper">
+      <Footer />
+    </div>
+
+    <div class="footer-mobile-wrapper">
+      <FooterMobile />
+    </div>
   </body>
 </html>
 
@@ -38,5 +45,21 @@ import Footer from "../components/Footer.astro";
   /* Ocultar barra en Chrome, Safari y Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
+  }
+  /* Lógica de visibilidad */
+  .footer-mobile-wrapper {
+    display: block;
+  }
+  .footer-desktop-wrapper {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .footer-mobile-wrapper {
+      display: none;
+    }
+    .footer-desktop-wrapper {
+      display: block;
+    }
   }
 </style>

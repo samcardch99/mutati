@@ -216,3 +216,12 @@ button:not(.no-style):active {
 
   transition: all 0.1s ease;
 }
+
+.contenedor-pin {
+  /* Fallback para navegadores antiguos */
+  height: 100vh;
+  /* La magia: 100 * nuestro 1% calculado */
+  height: calc(var(--vh, 1vh) * 100);
+  min-height: calc(var(--vh, 1vh) * 100);
+  overflow: hidden;
+}

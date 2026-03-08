@@ -116,10 +116,29 @@ const ARTIFACT = "The Artifact";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
 
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.normalizeScroll(true);
+
+  // Esto evita que la barra de direcciones "baile" mientras haces scroll dentro del pin
+  ScrollTrigger.config({
+    ignoreMobileResize: true,
+  });
 
   const cards = document.querySelectorAll(".stat-card");
   const nav = document.getElementById("main-nav");
   const wrapper = document.getElementById("statistics-wrapper");
+
+  const setVh = () => {
+    // Calculamos el 1% del innerHeight actual
+    let vh = window.innerHeight * 0.01;
+    // Lo asignamos como propiedad al elemento raíz
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  };
+
+  // Ejecutar al cargar
+  setVh();
+
+  // Opcional: Solo actualizar en cambios de orientación, no en cada scroll
+  window.addEventListener("orientationchange", setVh);
 
   const updateNavColor = (colorClass: string) => {
     if (!nav || !colorClass) return;
@@ -143,7 +162,7 @@ const ARTIFACT = "The Artifact";
       trigger: card,
       // Pinning estable
       start: "top top",
-      end: isLast ? "+=30%" : "bottom top",
+      end: isLast ? "+=30%" : `+=${window.innerHeight}`,
       pin: true,
       pinSpacing: isLast,
       scrub: true,
