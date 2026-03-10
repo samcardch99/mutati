@@ -12,7 +12,10 @@ import TextReveal from "../components/helpers/TextReveal.astro";
 import BackArrow from "../assets/back_arrow.svg";
 ---
 
-<Layout_Interior>
+<Layout_Interior
+  title="Mutati | The Artifact"
+  description="The Artifact: the tangible conclusion of each Mutati aeronautical commission."
+>
   <section
     id="the-artifact"
     data-nav-color="text-red"
@@ -25,7 +28,7 @@ import BackArrow from "../assets/back_arrow.svg";
       <BackArrow class="lg:w-16 lg:h-16 w-8 h-8" />
       <span class="text-2xl md:text-4xl lg:text-6xl font-light"> Back </span>
     </a>
-    <p>
+    <div class="contents">
       <TextReveal
         class="mutati-text text-xl text-center lg:text-left lg:text-4xl w-full lg:max-w-[40%] leading-normal lg:leading-16 order-2 lg:order-1"
         phrase="The Artifact serves as the tangible conclusion of each aeronautical
@@ -55,7 +58,7 @@ import BackArrow from "../assets/back_arrow.svg";
                 <div class="swiper-slide h-full w-full">
                   <Image
                     src={artifact}
-                    alt={`artifact ${index + 1}`}
+                    alt={`Mutati Artifact detail ${index + 1}`}
                     class={`h-full w-full object-contain ${index === 0 && "scale-75"}`}
                   />
                 </div>
@@ -95,7 +98,7 @@ import BackArrow from "../assets/back_arrow.svg";
           },
         });
       </script>
-    </p>
+    </div>
   </section>
 
   <style>

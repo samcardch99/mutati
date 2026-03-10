@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mutatidesign.com/sitemap-index.xml

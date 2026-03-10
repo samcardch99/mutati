@@ -27,7 +27,10 @@ const allImages = import.meta.glob<ImageModule>(
 const portadaPath = `../../assets/Projects/${project}/Portada/1.jpg`;
 ---
 
-<LayoutInterior>
+<LayoutInterior
+    title={`Mutati | ${data.title.replace(/\*/g, "")}`}
+    description={data.description}
+>
     <section
         id="projects-interior"
         data-nav-color="text-light"
@@ -54,7 +57,7 @@ const portadaPath = `../../assets/Projects/${project}/Portada/1.jpg`;
                         quality={60}
                         width={1920}
                         src={allImages[portadaPath]()}
-                        alt={`Portada ${data.title}`}
+                        alt={`Portada ${data.title.replace(/\*/g, "")}`}
                         class="object-cover w-full lg:max-w-[40%] shadow-2xl aspect-16/12"
                     />
                 )
@@ -101,7 +104,7 @@ const portadaPath = `../../assets/Projects/${project}/Portada/1.jpg`;
                                     quality={60}
                                     width={1280}
                                     src={allImages[imageKey]()}
-                                    alt={`${data.title} detail ${index}`}
+                                    alt={`${data.title.replace(/\*/g, "")} detail ${index}`}
                                     class="w-full h-full object-cover md:group-hover:grayscale-0 transition-all duration-700 md:group-hover:scale-110"
                                 />
                             </div>
