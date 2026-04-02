@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 html {
-  @apply lg:text-[0.7rem] xl:text-[0.51rem] 2xl-prev:text-[0.71rem] 2xl:text-[0.5rem] 2xl-custom:text-[0.9rem] 3xl-custom:text-[1.4rem];
+  @apply lg:text-[0.51rem] xl:text-[0.51rem] 2xl-prev:text-[0.71rem] 2xl:text-[0.5rem] 2xl-custom:text-[0.9rem] 3xl-custom:text-[1.4rem];
 }
 
 @font-face {

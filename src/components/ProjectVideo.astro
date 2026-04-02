@@ -1,7 +1,5 @@
 ---
-import videoProject from "../assets/1.mp4";
 import TypeWriter from "./helpers/TypeWriter.astro";
-import videoProjectMobile from "../assets/avion.mp4";
 ---
 
 <section
@@ -16,8 +14,8 @@ import videoProjectMobile from "../assets/avion.mp4";
         autoplay
         class="absolute inset-0 w-full h-full object-cover"
     >
-        <source src={videoProjectMobile} media="(max-width: 767px)" />
-        <source src={videoProject} media="(min-width: 768px)" />
+        <source src="/videos/avion.mp4" media="(max-width: 767px)" />
+        <source src="/videos/1.mp4" media="(min-width: 768px)" />
     </video>
     <div class="w-fit flex flex-col mix-blend-difference">
         <h2>
